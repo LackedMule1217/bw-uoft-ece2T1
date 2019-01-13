@@ -1,0 +1,38 @@
+gcc -c -g -Wall  main.c
+gcc -c -g -Wall  util.c
+gcc -c -g -Wall  read_netlist.c
+gcc -c -g -Wall  print_netlist.c
+gcc -c -g -Wall  check_netlist.c
+gcc -c -g -Wall  read_arch.c
+read_arch.c: In function 'print_arch':
+read_arch.c:1455:8: warning: variable 'chan_width_io' set but not used [-Wunused-but-set-variable]
+  float chan_width_io;
+        ^~~~~~~~~~~~~
+gcc -c -g -Wall  place_and_route.c
+gcc -c -g -Wall  place.c
+gcc -c -g -Wall  route_common.c
+gcc -c -g -Wall  route_timing.c
+gcc -c -g -Wall  route_tree_timing.c
+route_tree_timing.c: In function 'add_path_to_route_tree':
+route_tree_timing.c:235:13: warning: variable 'remaining_connections_to_sink' set but not used [-Wunused-but-set-variable]
+  int inode, remaining_connections_to_sink;
+             ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+gcc -c -g -Wall  route_breadth_first.c
+gcc -c -g -Wall  draw.c
+draw.c: In function 'draw_pin_to_chan_edge':
+draw.c:809:20: warning: variable 'pin_num' set but not used [-Wunused-but-set-variable]
+  int pin_x, pin_y, pin_num, chan_xlow, chan_ylow;
+                    ^~~~~~~
+draw.c: In function 'draw_rr_pin':
+draw.c:1092:33: warning: variable 'iblk' set but not used [-Wunused-but-set-variable]
+  int ipin, i, j, iside, iclass, iblk;
+                                 ^~~~
+draw.c:1092:25: warning: variable 'iclass' set but not used [-Wunused-but-set-variable]
+  int ipin, i, j, iside, iclass, iblk;
+                         ^~~~~~
+gcc -c -g -Wall  -I/usr/openwin/include graphics.c
+graphics.c:13:22: fatal error: X11/Xlib.h: No such file or directory
+ #include <X11/Xlib.h>
+                      ^
+compilation terminated.
+make.exe: *** [graphics.o] Error 1
