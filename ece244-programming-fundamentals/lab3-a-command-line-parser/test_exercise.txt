@@ -1,0 +1,13 @@
+maxShapes 10
+create s1 triangle 100 1 2 2 done
+create s1 triangle 100 1
+create s1 triangle 100
+create s1
+create move s1 100 200 300
+move s1
+move
+draw s1 done
+draw
+delete s1 done
+delete all done
+delete

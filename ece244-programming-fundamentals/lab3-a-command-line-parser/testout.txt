@@ -1,0 +1,27 @@
+> New database: max shapes is 3
+> Created my_circle: ellipse 50 65 20 20
+> Created my_square: rectangle 100 150 60 60
+> Error: invalid value
+> Created my_rectangle: rectangle 100 275 90 180
+> Error: invalid shape name
+> Error: shape my_rectangle exists
+> Error: shape array is full
+> Error: too few arguments
+> Error: invalid command
+> Moved my_circle to 70 90
+> Error: too many arguments
+> Rotated my_rectangle by 100 degrees
+> Error: invalid value
+> Error: shape my_trinagle not found
+> Drew my_circle
+my_circle: ellipse 70 90 20 20
+> Drew all shapes
+my_circle: ellipse 70 90 20 20
+my_square: rectangle 100 150 60 60
+my_rectangle: rectangle 100 275 90 180
+> Deleted shape my_square
+> Drew all shapes
+my_circle: ellipse 70 90 20 20
+my_rectangle: rectangle 100 275 90 180
+> Deleted: all shapes
+> Drew all shapes
