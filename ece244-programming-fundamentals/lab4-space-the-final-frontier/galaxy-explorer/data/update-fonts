@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+ln -fs "$(fc-match -f '%{file}\n')" default_font.ttf
+

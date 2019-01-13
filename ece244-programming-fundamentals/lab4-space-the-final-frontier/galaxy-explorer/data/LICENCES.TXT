@@ -1,0 +1,9 @@
+In general, images are public domain assets from https://opengameart.org/,
+	derivations thereof, or new works created for ECE244.
+
+Exceptions:
+	Galaxy Explorer's background
+		location: https://www.deviantart.com/funerium/art/Moment-in-space-CVI-129209585
+		licence info: free for academic use, must notify if published on the web
+		note: was distributed as part of the 'Let's make 16 games in C++/SFML!' series at
+			https://www.youtube.com/playlist?list=PLB_ibvUSN7mzUffhiay5g5GUHyJRO4DYr
