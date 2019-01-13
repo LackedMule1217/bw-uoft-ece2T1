@@ -1,0 +1,9 @@
+called: C:\MinGW\bin\g++.exe
+	D:\Barney\OneDrive - University of Toronto\2. Homework\4. Programming Fundamentals (ECE244)\Lab 1 Material\lab1\hello
+	C:\MinGW\bin\g++.exe
+	-Wall
+	-g
+	hello.cpp
+	-o
+	hello
+

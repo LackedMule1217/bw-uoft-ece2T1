@@ -1,0 +1,1 @@
+g++  -Wall -O0 -g harmonic.cpp -o harmonic
