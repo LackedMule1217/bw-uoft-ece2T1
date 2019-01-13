@@ -1,0 +1,101 @@
+==31381== Memcheck, a memory error detector
+==31381== Copyright (C) 2002-2015, and GNU GPL'd, by Julian Seward et al.
+==31381== Using Valgrind-3.11.0 and LibVEX; rerun with -h for copyright info
+==31381== Command: /u/a/weishij2/ece244/lab5/domainNameServer/dist/Debug_Valgrind/GNU-Linux/domainnameserver
+==31381== Parent PID: 31380
+==31381== 
+==19533== 
+==19533== Process terminating with default action of signal 15 (SIGTERM)
+==19533==    at 0x30D40DB780: __read_nocancel (in /lib64/libc-2.12.so)
+==19533==    by 0x30D4071B57: _IO_file_underflow@@GLIBC_2.2.5 (in /lib64/libc-2.12.so)
+==19533==    by 0x30D407365D: _IO_default_uflow (in /lib64/libc-2.12.so)
+==19533==    by 0x30D406EB4A: getc (in /lib64/libc-2.12.so)
+==19533==    by 0x30DA89055C: __gnu_cxx::stdio_sync_filebuf<char, std::char_traits<char> >::underflow() (in /usr/lib64/libstdc++.so.6.0.13)
+==19533==    by 0x30DA87C04B: std::basic_istream<char, std::char_traits<char> >& std::getline<char, std::char_traits<char>, std::allocator<char> >(std::basic_istream<char, std::char_traits<char> >&, std::basic_string<char, std::char_traits<char>, std::allocator<char> >&, char) (in /usr/lib64/libstdc++.so.6.0.13)
+==19533==    by 0x401352: main (Main.cpp:67)
+==19533== 
+==19533== Process terminating with default action of signal 1 (SIGHUP)
+==19533==    at 0x30D40DB780: __read_nocancel (in /lib64/libc-2.12.so)
+==19533==    by 0x30D4071B57: _IO_file_underflow@@GLIBC_2.2.5 (in /lib64/libc-2.12.so)
+==19533==    by 0x30D407365D: _IO_default_uflow (in /lib64/libc-2.12.so)
+==19533==    by 0x30D406EB4A: getc (in /lib64/libc-2.12.so)
+==19533==    by 0x30DA89055C: __gnu_cxx::stdio_sync_filebuf<char, std::char_traits<char> >::underflow() (in /usr/lib64/libstdc++.so.6.0.13)
+==19533==    by 0x30DA87C04B: std::basic_istream<char, std::char_traits<char> >& std::getline<char, std::char_traits<char>, std::allocator<char> >(std::basic_istream<char, std::char_traits<char> >&, std::basic_string<char, std::char_traits<char>, std::allocator<char> >&, char) (in /usr/lib64/libstdc++.so.6.0.13)
+==19533==    by 0x401352: main (Main.cpp:67)
+==19533== 
+==19533== HEAP SUMMARY:
+==19533==     in use at exit: 683 bytes in 22 blocks
+==19533==   total heap usage: 45 allocs, 23 frees, 1,614 bytes allocated
+==19533== 
+==19533== 24 bytes in 1 blocks are still reachable in loss record 1 of 8
+==19533==    at 0x4A07D73: operator new(unsigned long) (vg_replace_malloc.c:332)
+==19533==    by 0x401DC1: TreeDB::insert(DBentry*) (TreeDB.cpp:45)
+==19533==    by 0x401863: insert(TreeDB&, std::string const&, unsigned int const&, bool const&) (Main.cpp:120)
+==19533==    by 0x40156C: main (Main.cpp:99)
+==19533== 
+==19533== 33 bytes in 1 blocks are still reachable in loss record 2 of 8
+==19533==    at 0x4A07D73: operator new(unsigned long) (vg_replace_malloc.c:332)
+==19533==    by 0x30DA89C3C8: std::string::_Rep::_S_create(unsigned long, unsigned long, std::allocator<char> const&) (in /usr/lib64/libstdc++.so.6.0.13)
+==19533==    by 0x30DA89D19A: std::string::_Rep::_M_clone(std::allocator<char> const&, unsigned long) (in /usr/lib64/libstdc++.so.6.0.13)
+==19533==    by 0x30DA89D5EB: std::string::reserve(unsigned long) (in /usr/lib64/libstdc++.so.6.0.13)
+==19533==    by 0x30DA89D867: std::string::append(char const*, unsigned long) (in /usr/lib64/libstdc++.so.6.0.13)
+==19533==    by 0x30DA87AF8D: std::basic_istream<char, std::char_traits<char> >& std::operator>><char, std::char_traits<char>, std::allocator<char> >(std::basic_istream<char, std::char_traits<char> >&, std::basic_string<char, std::char_traits<char>, std::allocator<char> >&) (in /usr/lib64/libstdc++.so.6.0.13)
+==19533==    by 0x40141C: main (Main.cpp:89)
+==19533== 
+==19533== 37 bytes in 1 blocks are still reachable in loss record 3 of 8
+==19533==    at 0x4A07D73: operator new(unsigned long) (vg_replace_malloc.c:332)
+==19533==    by 0x30DA89C3C8: std::string::_Rep::_S_create(unsigned long, unsigned long, std::allocator<char> const&) (in /usr/lib64/libstdc++.so.6.0.13)
+==19533==    by 0x30DA89D19A: std::string::_Rep::_M_clone(std::allocator<char> const&, unsigned long) (in /usr/lib64/libstdc++.so.6.0.13)
+==19533==    by 0x30DA89D5EB: std::string::reserve(unsigned long) (in /usr/lib64/libstdc++.so.6.0.13)
+==19533==    by 0x30DA89D867: std::string::append(char const*, unsigned long) (in /usr/lib64/libstdc++.so.6.0.13)
+==19533==    by 0x30DA87AF8D: std::basic_istream<char, std::char_traits<char> >& std::operator>><char, std::char_traits<char>, std::allocator<char> >(std::basic_istream<char, std::char_traits<char> >&, std::basic_string<char, std::char_traits<char>, std::allocator<char> >&) (in /usr/lib64/libstdc++.so.6.0.13)
+==19533==    by 0x4013B3: main (Main.cpp:86)
+==19533== 
+==19533== 49 bytes in 1 blocks are still reachable in loss record 4 of 8
+==19533==    at 0x4A07D73: operator new(unsigned long) (vg_replace_malloc.c:332)
+==19533==    by 0x30DA89C3C8: std::string::_Rep::_S_create(unsigned long, unsigned long, std::allocator<char> const&) (in /usr/lib64/libstdc++.so.6.0.13)
+==19533==    by 0x30DA89D19A: std::string::_Rep::_M_clone(std::allocator<char> const&, unsigned long) (in /usr/lib64/libstdc++.so.6.0.13)
+==19533==    by 0x30DA89D5EB: std::string::reserve(unsigned long) (in /usr/lib64/libstdc++.so.6.0.13)
+==19533==    by 0x30DA89D867: std::string::append(char const*, unsigned long) (in /usr/lib64/libstdc++.so.6.0.13)
+==19533==    by 0x30DA87AF8D: std::basic_istream<char, std::char_traits<char> >& std::operator>><char, std::char_traits<char>, std::allocator<char> >(std::basic_istream<char, std::char_traits<char> >&, std::basic_string<char, std::char_traits<char>, std::allocator<char> >&) (in /usr/lib64/libstdc++.so.6.0.13)
+==19533==    by 0x401486: main (Main.cpp:91)
+==19533== 
+==19533== 89 bytes in 1 blocks are still reachable in loss record 5 of 8
+==19533==    at 0x4A07D73: operator new(unsigned long) (vg_replace_malloc.c:332)
+==19533==    by 0x30DA89C3C8: std::string::_Rep::_S_create(unsigned long, unsigned long, std::allocator<char> const&) (in /usr/lib64/libstdc++.so.6.0.13)
+==19533==    by 0x30DA89D19A: std::string::_Rep::_M_clone(std::allocator<char> const&, unsigned long) (in /usr/lib64/libstdc++.so.6.0.13)
+==19533==    by 0x30DA89D5EB: std::string::reserve(unsigned long) (in /usr/lib64/libstdc++.so.6.0.13)
+==19533==    by 0x30DA87BFF4: std::basic_istream<char, std::char_traits<char> >& std::getline<char, std::char_traits<char>, std::allocator<char> >(std::basic_istream<char, std::char_traits<char> >&, std::basic_string<char, std::char_traits<char>, std::allocator<char> >&, char) (in /usr/lib64/libstdc++.so.6.0.13)
+==19533==    by 0x401352: main (Main.cpp:67)
+==19533== 
+==19533== 96 bytes in 6 blocks are still reachable in loss record 6 of 8
+==19533==    at 0x4A07D73: operator new(unsigned long) (vg_replace_malloc.c:332)
+==19533==    by 0x40181E: insert(TreeDB&, std::string const&, unsigned int const&, bool const&) (Main.cpp:119)
+==19533==    by 0x40156C: main (Main.cpp:99)
+==19533== 
+==19533== 120 bytes in 5 blocks are still reachable in loss record 7 of 8
+==19533==    at 0x4A07D73: operator new(unsigned long) (vg_replace_malloc.c:332)
+==19533==    by 0x401E3C: TreeDB::insert(DBentry*) (TreeDB.cpp:55)
+==19533==    by 0x401863: insert(TreeDB&, std::string const&, unsigned int const&, bool const&) (Main.cpp:120)
+==19533==    by 0x40156C: main (Main.cpp:99)
+==19533== 
+==19533== 235 bytes in 6 blocks are still reachable in loss record 8 of 8
+==19533==    at 0x4A07D73: operator new(unsigned long) (vg_replace_malloc.c:332)
+==19533==    by 0x30DA89C3C8: std::string::_Rep::_S_create(unsigned long, unsigned long, std::allocator<char> const&) (in /usr/lib64/libstdc++.so.6.0.13)
+==19533==    by 0x30DA89D19A: std::string::_Rep::_M_clone(std::allocator<char> const&, unsigned long) (in /usr/lib64/libstdc++.so.6.0.13)
+==19533==    by 0x30DA89D5EB: std::string::reserve(unsigned long) (in /usr/lib64/libstdc++.so.6.0.13)
+==19533==    by 0x30DA89D867: std::string::append(char const*, unsigned long) (in /usr/lib64/libstdc++.so.6.0.13)
+==19533==    by 0x30DA87AF8D: std::basic_istream<char, std::char_traits<char> >& std::operator>><char, std::char_traits<char>, std::allocator<char> >(std::basic_istream<char, std::char_traits<char> >&, std::basic_string<char, std::char_traits<char>, std::allocator<char> >&) (in /usr/lib64/libstdc++.so.6.0.13)
+==19533==    by 0x4013F8: main (Main.cpp:89)
+==19533== 
+==19533== LEAK SUMMARY:
+==19533==    definitely lost: 0 bytes in 0 blocks
+==19533==    indirectly lost: 0 bytes in 0 blocks
+==19533==      possibly lost: 0 bytes in 0 blocks
+==19533==    still reachable: 683 bytes in 22 blocks
+==19533==                       of which reachable via heuristic:
+==19533==                         stdstring          : 443 bytes in 10 blocks
+==19533==         suppressed: 0 bytes in 0 blocks
+==19533== 
+==19533== For counts of detected and suppressed errors, rerun with: -v
+==19533== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 4 from 4)
