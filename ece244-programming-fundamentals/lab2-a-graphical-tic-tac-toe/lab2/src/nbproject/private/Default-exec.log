@@ -1,0 +1,19 @@
+called: g++
+	/u/a/weishij2/ece244/assign2/src
+	g++
+	-c
+	/u/a/weishij2/ece244/assign2/src/tic-tac-toe/playMove.cpp
+	-o
+	../build/OBJ/debug/tic-tac-toe/playMove.o
+	-std=c++14
+	-ggdb
+	-Wall
+	-Wextra
+	-pedantic
+	-I
+	.
+	-I
+	/share/copy/ece244f/assignments/src/
+	-isystem
+	/share/copy/ece244f/SFML-2.4.2/include
+

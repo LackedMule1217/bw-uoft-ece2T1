@@ -1,0 +1,34 @@
+Submitting assignment 2 from p44.ecf.utoronto.ca
+Checking for the expected files in the current directory
+playMove.cpp main.cpp
+Attempting to build your code.  Make output follows:
+==================================================================
+scl enable devtoolset-4 'g++ -std=c++0x -I /u/course/ece244i/public/2/common/ -Wall playMove.cpp testplayMove.o -o testplayMove.exe'
+scl enable devtoolset-4 'g++ -std=c++0x -c -I/share/copy/ece244f/SFML-2.4.2/include -I/u/course/ece244i/public/2/common -Wall main.cpp'
+------------------------------------------------------------------
+The build appears to have been successful
+
+Running exercise on the produced executable 'playMove.cpp'
+############### Testcase 1 Results ##########################
+Functionality: PASS - Output matches solution
+############### Testcase 2 Results ##########################
+Functionality: PASS - Output matches solution
+############### Testcase 3 Results ##########################
+Functionality: PASS - Output matches solution
+################# Summary for 3 test(s) #####################
+Functionality: PASS: All tests passed
+
+The required files passed exercise
+
+Submitting files
+
+Verifying submission
+submitece244f -l 2
+total 16
+-rw-r----- 1 submit ece244f 9753 Sep 25 14:16 main.cpp
+-rw-r----- 1 submit ece244f 3635 Sep 25 14:16 playMove.cpp
+
+All filesizes match. All timestamps match submission time.
+
+Submission was successful
+

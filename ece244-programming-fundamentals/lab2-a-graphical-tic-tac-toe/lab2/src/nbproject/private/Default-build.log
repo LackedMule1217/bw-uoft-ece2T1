@@ -1,0 +1,41 @@
+Building with makeflags  --no-print-directory -rl 8 -- PARALELL_WRAPPER_ABXCOEOEKCOEBMQJKHTOEUB=done
+In build mode debug
+mkdir -p ../build/EXE/debug
+'g++' -c  '/u/a/weishij2/ece244/assign2/src/tic-tac-toe/playMove.cpp' -o  '../build/OBJ/debug/tic-tac-toe/playMove.o' -std=c++14 -ggdb  -Wall -Wextra -pedantic  -I . -I /share/copy/ece244f/assignments/src/ -isystem /share/copy/ece244f/SFML-2.4.2/include
+/u/a/weishij2/ece244/assign2/src/tic-tac-toe/playMove.cpp: In function ‘void playMove(int (*)[3], int, int, bool&, bool&, bool&, int&)’:
+/u/a/weishij2/ece244/assign2/src/tic-tac-toe/playMove.cpp:22:21: error: ‘False’ was not declared in this scope
+         validMove = False;
+                     ^
+/u/a/weishij2/ece244/assign2/src/tic-tac-toe/playMove.cpp:23:66: error: ‘print’ was not declared in this scope
+         print(board, row, col, turn, validMove, gameOver, winCode);
+                                                                  ^
+/u/a/weishij2/ece244/assign2/src/tic-tac-toe/playMove.cpp:26:21: error: ‘True’ was not declared in this scope
+         validMove = True;
+                     ^
+/u/a/weishij2/ece244/assign2/src/tic-tac-toe/playMove.cpp:30:17: error: ‘False’ was not declared in this scope
+     if (turn == False) {
+                 ^
+/u/a/weishij2/ece244/assign2/src/tic-tac-toe/playMove.cpp:39:31: error: request for member ‘size’ in ‘board’, which is of non-class type ‘int (*)[3]’
+     for (int m = 0; m < board.size(); m++) {
+                               ^
+/u/a/weishij2/ece244/assign2/src/tic-tac-toe/playMove.cpp:41:34: error: expected identifier before ‘(’ token
+         if (board[0][m] != 0) && (board[0][m] == board[1][m]) && (board[0][m] == board[2][m])
+                                  ^
+/u/a/weishij2/ece244/assign2/src/tic-tac-toe/playMove.cpp:41:34: warning: taking the address of a label is non-standard [-Wpedantic]
+/u/a/weishij2/ece244/assign2/src/tic-tac-toe/playMove.cpp:49:39: error: expected identifier before ‘(’ token
+         else if (board[m][0] != 0) && (board[m][0] == board[m][1]) && (board[m][0] == board[m][2])
+                                       ^
+/u/a/weishij2/ece244/assign2/src/tic-tac-toe/playMove.cpp:49:39: warning: taking the address of a label is non-standard [-Wpedantic]
+/u/a/weishij2/ece244/assign2/src/tic-tac-toe/playMove.cpp:58:30: error: expected identifier before ‘(’ token
+     if (board[0][0] != 0) && (board[0][0] == board[1][1]) && (board[0][0] == board[2][2])
+                              ^
+/u/a/weishij2/ece244/assign2/src/tic-tac-toe/playMove.cpp:58:30: warning: taking the address of a label is non-standard [-Wpedantic]
+/u/a/weishij2/ece244/assign2/src/tic-tac-toe/playMove.cpp:65:35: error: expected identifier before ‘(’ token
+     else if (board[0][2] != 0) && (board[0][2] == board[1][1]) && (board[0][2] == board[2][0])
+                                   ^
+/u/a/weishij2/ece244/assign2/src/tic-tac-toe/playMove.cpp:65:35: warning: taking the address of a label is non-standard [-Wpedantic]
+/u/a/weishij2/ece244/assign2/src/tic-tac-toe/playMove.cpp:74:16: error: ‘False’ was not declared in this scope
+     gameOver = False;
+                ^
+gmake[1]: *** [../build/OBJ/debug/tic-tac-toe/playMove.o] Error 1
+gmake: *** [parallel_wrapper_default_target_anthsqjkshbeohcbmeuthnoethoaeou] Error 2
