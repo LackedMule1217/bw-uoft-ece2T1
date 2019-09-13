@@ -1,0 +1,149 @@
+------------------------------------------------------------
+Timing Analyzer Summary
+------------------------------------------------------------
+
+Type  : Slow 1100mV 85C Model Setup 'proc:U3|Tstep_Q.T4'
+Slack : -15.377
+TNS   : -15.377
+
+Type  : Slow 1100mV 85C Model Setup 'CLOCK_50'
+Slack : -11.120
+TNS   : -2128.270
+
+Type  : Slow 1100mV 85C Model Setup 'proc:U3|Tstep_Q.T3'
+Slack : -6.656
+TNS   : -6.656
+
+Type  : Slow 1100mV 85C Model Hold 'CLOCK_50'
+Slack : -3.328
+TNS   : -105.132
+
+Type  : Slow 1100mV 85C Model Hold 'proc:U3|Tstep_Q.T4'
+Slack : -0.788
+TNS   : -0.788
+
+Type  : Slow 1100mV 85C Model Hold 'proc:U3|Tstep_Q.T3'
+Slack : 2.834
+TNS   : 0.000
+
+Type  : Slow 1100mV 85C Model Minimum Pulse Width 'CLOCK_50'
+Slack : -2.174
+TNS   : -222.694
+
+Type  : Slow 1100mV 85C Model Minimum Pulse Width 'proc:U3|Tstep_Q.T3'
+Slack : 0.139
+TNS   : 0.000
+
+Type  : Slow 1100mV 85C Model Minimum Pulse Width 'proc:U3|Tstep_Q.T4'
+Slack : 0.399
+TNS   : 0.000
+
+Type  : Slow 1100mV 0C Model Setup 'proc:U3|Tstep_Q.T4'
+Slack : -15.501
+TNS   : -15.501
+
+Type  : Slow 1100mV 0C Model Setup 'CLOCK_50'
+Slack : -11.187
+TNS   : -2113.636
+
+Type  : Slow 1100mV 0C Model Setup 'proc:U3|Tstep_Q.T3'
+Slack : -6.600
+TNS   : -6.600
+
+Type  : Slow 1100mV 0C Model Hold 'CLOCK_50'
+Slack : -3.401
+TNS   : -127.147
+
+Type  : Slow 1100mV 0C Model Hold 'proc:U3|Tstep_Q.T4'
+Slack : -0.740
+TNS   : -0.740
+
+Type  : Slow 1100mV 0C Model Hold 'proc:U3|Tstep_Q.T3'
+Slack : 2.960
+TNS   : 0.000
+
+Type  : Slow 1100mV 0C Model Minimum Pulse Width 'CLOCK_50'
+Slack : -2.174
+TNS   : -231.983
+
+Type  : Slow 1100mV 0C Model Minimum Pulse Width 'proc:U3|Tstep_Q.T3'
+Slack : 0.176
+TNS   : 0.000
+
+Type  : Slow 1100mV 0C Model Minimum Pulse Width 'proc:U3|Tstep_Q.T4'
+Slack : 0.415
+TNS   : 0.000
+
+Type  : Fast 1100mV 85C Model Setup 'proc:U3|Tstep_Q.T4'
+Slack : -8.377
+TNS   : -8.377
+
+Type  : Fast 1100mV 85C Model Setup 'CLOCK_50'
+Slack : -6.049
+TNS   : -1148.362
+
+Type  : Fast 1100mV 85C Model Setup 'proc:U3|Tstep_Q.T3'
+Slack : -3.522
+TNS   : -3.522
+
+Type  : Fast 1100mV 85C Model Hold 'CLOCK_50'
+Slack : -1.879
+TNS   : -56.274
+
+Type  : Fast 1100mV 85C Model Hold 'proc:U3|Tstep_Q.T4'
+Slack : -0.505
+TNS   : -0.505
+
+Type  : Fast 1100mV 85C Model Hold 'proc:U3|Tstep_Q.T3'
+Slack : 1.587
+TNS   : 0.000
+
+Type  : Fast 1100mV 85C Model Minimum Pulse Width 'CLOCK_50'
+Slack : -2.174
+TNS   : -103.644
+
+Type  : Fast 1100mV 85C Model Minimum Pulse Width 'proc:U3|Tstep_Q.T3'
+Slack : 0.211
+TNS   : 0.000
+
+Type  : Fast 1100mV 85C Model Minimum Pulse Width 'proc:U3|Tstep_Q.T4'
+Slack : 0.387
+TNS   : 0.000
+
+Type  : Fast 1100mV 0C Model Setup 'proc:U3|Tstep_Q.T4'
+Slack : -7.759
+TNS   : -7.759
+
+Type  : Fast 1100mV 0C Model Setup 'CLOCK_50'
+Slack : -5.388
+TNS   : -1012.172
+
+Type  : Fast 1100mV 0C Model Setup 'proc:U3|Tstep_Q.T3'
+Slack : -3.308
+TNS   : -3.308
+
+Type  : Fast 1100mV 0C Model Hold 'CLOCK_50'
+Slack : -1.859
+TNS   : -67.407
+
+Type  : Fast 1100mV 0C Model Hold 'proc:U3|Tstep_Q.T4'
+Slack : -0.437
+TNS   : -0.437
+
+Type  : Fast 1100mV 0C Model Hold 'proc:U3|Tstep_Q.T3'
+Slack : 1.642
+TNS   : 0.000
+
+Type  : Fast 1100mV 0C Model Minimum Pulse Width 'CLOCK_50'
+Slack : -2.174
+TNS   : -103.165
+
+Type  : Fast 1100mV 0C Model Minimum Pulse Width 'proc:U3|Tstep_Q.T3'
+Slack : 0.269
+TNS   : 0.000
+
+Type  : Fast 1100mV 0C Model Minimum Pulse Width 'proc:U3|Tstep_Q.T4'
+Slack : 0.411
+TNS   : 0.000
+
+------------------------------------------------------------

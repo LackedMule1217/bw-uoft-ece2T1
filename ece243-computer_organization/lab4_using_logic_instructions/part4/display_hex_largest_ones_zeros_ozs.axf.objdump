@@ -1,0 +1,294 @@
+
+D:/Lab 4; Using Logic Instructions/part4/display_hex_largest_ones_zeros_ozs.axf:     file format elf32-littlearm
+
+
+Disassembly of section .text:
+
+00000000 <__cs3_interrupt_vector>:
+
+			.text 						// executable code follows
+			.global _start
+			
+_start:
+			MOV 	R3, #TEST_NUM 		// load the memory address of the data word array
+   0:	e3a03f61 	mov	r3, #388	; 0x184
+			MOV		R5, #0				// initially sets the result to 0
+   4:	e3a05000 	mov	r5, #0
+			MOV		R6, #0				// initially sets the result to 0
+   8:	e3a06000 	mov	r6, #0
+			MOV		R7, #0				// initially sets the result to 0
+   c:	e3a07000 	mov	r7, #0
+
+00000010 <LOOP>:
+LOOP:		LDR 	R1, [R3], #4		// copies the data word array element and then increment address
+  10:	e4931004 	ldr	r1, [r3], #4
+			CMP		R1, #0				// checks if reached end of array
+  14:	e3510000 	cmp	r1, #0
+			BEQ		DISPLAY
+  18:	0a000009 	beq	44 <DISPLAY>
+			BL		ONES				// calls ONES subroutine
+  1c:	eb000031 	bl	e8 <ONES>
+			CMP		R5, R0				// compares if current largest 1s > R0
+  20:	e1550000 	cmp	r5, r0
+			MOVLT	R5, R0				// stores R0 into R5 if current largest 1s < R0
+  24:	b1a05000 	movlt	r5, r0
+			BL		ZEROS				// calls ONES subroutine
+  28:	eb000038 	bl	110 <ZEROS>
+			CMP		R6, R0				// compares if current largest 1s > R0
+  2c:	e1560000 	cmp	r6, r0
+			MOVLT	R6, R0				// stores R0 into R5 if current largest 1s < R0
+  30:	b1a06000 	movlt	r6, r0
+			BL		ALTERN				// calls ALTERN (ALTERNATE) subroutine
+  34:	eb00003a 	bl	124 <ALTERN>
+			CMP		R7, R0				// compares if current largest 1s > R0
+  38:	e1570000 	cmp	r7, r0
+			MOVLT	R7, R0				// stores R0 into R5 if current largest 1s < R0
+  3c:	b1a07000 	movlt	r7, r0
+			
+			B		LOOP
+  40:	eafffff2 	b	10 <LOOP>
+
+00000044 <DISPLAY>:
+			
+// Display R5 on HEX1-0, R6 on HEX3-2 and R7 on HEX5-4
+DISPLAY:    LDR     R8, =0xFF200020 // base address of HEX3-HEX0
+  44:	e59f8168 	ldr	r8, [pc, #360]	; 1b4 <TEST_NUM+0x30>
+			MOV		R9,	#HEX3_0
+  48:	e3a090dc 	mov	r9, #220	; 0xdc
+			// stores R5
+            MOV     R0, R5          // display R5 on HEX1-0
+  4c:	e1a00005 	mov	r0, r5
+            BL      DIVIDE          // ones digit will be in R0; tens digit in R1
+  50:	eb000041 	bl	15c <DIVIDE>
+            MOV     R2, R1          // store tens digit to R2
+  54:	e1a02001 	mov	r2, r1
+			MOV     R1, R0          // store ones digit to R1
+  58:	e1a01000 	mov	r1, r0
+            BL      SEG7_CODE
+  5c:	eb000036 	bl	13c <SEG7_CODE>
+			STRB	R0, [R9], #1	// load ones digit to HEX0
+  60:	e4c90001 	strb	r0, [r9], #1
+			MOV		R0, R2			// store tens digit to R0
+  64:	e1a00002 	mov	r0, r2
+			BL      SEG7_CODE
+  68:	eb000033 	bl	13c <SEG7_CODE>
+			STRB	R0, [R9], #1	// load tens digit to HEX1
+  6c:	e4c90001 	strb	r0, [r9], #1
+			// stores R6
+            MOV     R0, R6          // display R6 on HEX1-2
+  70:	e1a00006 	mov	r0, r6
+            BL      DIVIDE          // ones digit will be in R0; tens digit in R1
+  74:	eb000038 	bl	15c <DIVIDE>
+            MOV     R2, R1          // store tens digit to R2
+  78:	e1a02001 	mov	r2, r1
+			MOV     R1, R0          // store ones digit to R1
+  7c:	e1a01000 	mov	r1, r0
+            BL      SEG7_CODE
+  80:	eb00002d 	bl	13c <SEG7_CODE>
+			STRB	R0, [R9], #1	// load ones digit to HEX0
+  84:	e4c90001 	strb	r0, [r9], #1
+			MOV		R0, R2			// store tens digit to R0
+  88:	e1a00002 	mov	r0, r2
+			BL      SEG7_CODE
+  8c:	eb00002a 	bl	13c <SEG7_CODE>
+			STRB	R0, [R9], #1	// load tens digit to HEX1
+  90:	e4c90001 	strb	r0, [r9], #1
+			//	load to HEX3-0
+			MOV		R9,	#HEX3_0
+  94:	e3a090dc 	mov	r9, #220	; 0xdc
+			LDR		R9, [R9]
+  98:	e5999000 	ldr	r9, [r9]
+			STR		R9, [R8]		// load digits to HEX3-0
+  9c:	e5889000 	str	r9, [r8]
+			
+			LDR     R8, =0xFF200030 // base address of HEX3-HEX0
+  a0:	e59f8110 	ldr	r8, [pc, #272]	; 1b8 <TEST_NUM+0x34>
+			MOV		R9,	#HEX5_4
+  a4:	e3a090e0 	mov	r9, #224	; 0xe0
+			// stores R7
+            MOV     R0, R7          // display R6 on HEX1-2
+  a8:	e1a00007 	mov	r0, r7
+            BL      DIVIDE          // ones digit will be in R0; tens digit in R1
+  ac:	eb00002a 	bl	15c <DIVIDE>
+            MOV     R2, R1          // store tens digit to R2
+  b0:	e1a02001 	mov	r2, r1
+			MOV     R1, R0          // store ones digit to R1
+  b4:	e1a01000 	mov	r1, r0
+            BL      SEG7_CODE
+  b8:	eb00001f 	bl	13c <SEG7_CODE>
+			STRB	R0, [R9], #1	// load ones digit to HEX0
+  bc:	e4c90001 	strb	r0, [r9], #1
+			MOV		R0, R2			// store tens digit to R0
+  c0:	e1a00002 	mov	r0, r2
+			BL      SEG7_CODE
+  c4:	eb00001c 	bl	13c <SEG7_CODE>
+			STRB	R0, [R9], #1	// load tens digit to HEX1
+  c8:	e4c90001 	strb	r0, [r9], #1
+			//	load to HEX5-4
+			MOV		R9,	#HEX5_4
+  cc:	e3a090e0 	mov	r9, #224	; 0xe0
+			LDR		R9, [R9]
+  d0:	e5999000 	ldr	r9, [r9]
+			STR		R9, [R8]		// load digits to HEX3-0
+  d4:	e5889000 	str	r9, [r8]
+			
+			B		END
+  d8:	ea000001 	b	e4 <END>
+
+000000dc <HEX3_0>:
+  dc:	00000000 	.word	0x00000000
+
+000000e0 <HEX5_4>:
+  e0:	00000000 	.word	0x00000000
+
+000000e4 <END>:
+
+HEX3_0:		.space	4
+HEX5_4:		.space	2
+			.skip	2
+
+END: 		B 		END
+  e4:	eafffffe 	b	e4 <END>
+
+000000e8 <ONES>:
+ * Performs callee-save
+ * Input: 		R1 - input data
+ * Usage:		R2 - stores: LSR of input data || LSR of input data AND input data
+ * Output: 		R0 - result: number of consecutive 1s
+ */
+ONES:		PUSH	{R1-R12, LR}		// callee-save to stack
+  e8:	e92d5ffe 	push	{r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12, lr}
+			MOV		R0, #0
+  ec:	e3a00000 	mov	r0, #0
+
+000000f0 <ONES_LOOP>:
+			
+ONES_LOOP:	CMP		R1, #0				// loop until the data contains no more 1's
+  f0:	e3510000 	cmp	r1, #0
+			BEQ		ONES_END
+  f4:	0a000003 	beq	108 <ONES_END>
+			ADD		R0, #1				// increment the number of ones counter
+  f8:	e2800001 	add	r0, r0, #1
+			LSR		R2, R1, #1			// logical shift right the input data by 1 unit and store in R2
+  fc:	e1a020a1 	lsr	r2, r1, #1
+			AND		R1, R1, R2			// bitwise and input data with LSR data and store in R2
+ 100:	e0011002 	and	r1, r1, r2
+			B		ONES_LOOP
+ 104:	eafffff9 	b	f0 <ONES_LOOP>
+
+00000108 <ONES_END>:
+			
+ONES_END:	POP		{R1-R12, LR}		// callee-retrieve from stack
+ 108:	e8bd5ffe 	pop	{r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12, lr}
+			BX		LR					// return to caller	
+ 10c:	e12fff1e 	bx	lr
+
+00000110 <ZEROS>:
+/* Subroutine to calculate the number of consecutive 0s
+ * Performs callee-save
+ * Input: 		R1 - input data
+ * Output: 		R0 - result: number of consecutive 1s
+ */
+ZEROS:		PUSH	{R1-R12, LR}		// callee-save to stack
+ 110:	e92d5ffe 	push	{r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12, lr}
+
+			MVN		R1, R1				// bitwise negate input data and store in R1
+ 114:	e1e01001 	mvn	r1, r1
+			BL		ONES				// call ONES subroutine to count the number of ones and store to R0
+ 118:	ebfffff2 	bl	e8 <ONES>
+			
+			POP		{R1-R12, LR}		// callee-retrieve from stack
+ 11c:	e8bd5ffe 	pop	{r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12, lr}
+			BX		LR					// return to caller	
+ 120:	e12fff1e 	bx	lr
+
+00000124 <ALTERN>:
+ * Performs callee-save
+ * Input: 		R1 - input data
+ * Usage:		R2 - stores: LSR of input data || LSR of input data AND input data
+ * Output: 		R0 - result: number of consecutive 1s
+ */
+ALTERN:		PUSH	{R1-R12, LR}		// callee-save to stack
+ 124:	e92d5ffe 	push	{r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12, lr}
+			
+			ASR		R2, R1, #1			// arithmetic shift right the input data by 1 unit and store in R2
+ 128:	e1a020c1 	asr	r2, r1, #1
+			EOR		R1, R1, R2			// xor input data with LSR data and store in R1
+ 12c:	e0211002 	eor	r1, r1, r2
+			BL		ONES				// call ONES subroutine to count the number of ones and store to R0
+ 130:	ebffffec 	bl	e8 <ONES>
+			
+			POP		{R1-R12, LR}		// callee-retrieve from stack
+ 134:	e8bd5ffe 	pop	{r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12, lr}
+			BX		LR					// return to caller	
+ 138:	e12fff1e 	bx	lr
+
+0000013c <SEG7_CODE>:
+ * Performs callee-save
+ * Input: 		R0 - digit
+ * Usage:		R1 - stores: BIT_CODES
+ * Output: 		R0 - HEX BIT_CODES memory location
+ */
+SEG7_CODE:  PUSH	{R1-R12, LR}
+ 13c:	e92d5ffe 	push	{r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12, lr}
+			MOV     R1, #BIT_CODES  
+ 140:	e3a01e15 	mov	r1, #336	; 0x150
+            LDRB    R0, [R1, R0]
+ 144:	e7d10000 	ldrb	r0, [r1, r0]
+			POP		{R1-R12, LR}
+ 148:	e8bd5ffe 	pop	{r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12, lr}
+            BX      LR              
+ 14c:	e12fff1e 	bx	lr
+
+00000150 <BIT_CODES>:
+ 150:	4f5b063f 	.word	0x4f5b063f
+ 154:	077d6d66 	.word	0x077d6d66
+ 158:	0000677f 	.word	0x0000677f
+
+0000015c <DIVIDE>:
+ * Input: 		R0 - input data
+ * Usage:		R2 - stores: quotient
+ * Output: 		R0 - remainder
+				R1 - quotient
+ */
+DIVIDE: 	PUSH	{R2-R12, LR}
+ 15c:	e92d5ffc 	push	{r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12, lr}
+			MOV 	R2, #0
+ 160:	e3a02000 	mov	r2, #0
+
+00000164 <CONT>:
+CONT: 		CMP 	R0, #10
+ 164:	e350000a 	cmp	r0, #10
+			BLT 	DIV_END
+ 168:	ba000002 	blt	178 <DIV_END>
+			SUB 	R0, #10
+ 16c:	e240000a 	sub	r0, r0, #10
+			ADD 	R2, #1
+ 170:	e2822001 	add	r2, r2, #1
+			B 		CONT
+ 174:	eafffffa 	b	164 <CONT>
+
+00000178 <DIV_END>:
+			
+DIV_END: 	MOV 	R1, R2 				// quotient in R1 (remainder in R0)
+ 178:	e1a01002 	mov	r1, r2
+			POP		{R2-R12, LR}
+ 17c:	e8bd5ffc 	pop	{r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12, lr}
+			BX		LR
+ 180:	e12fff1e 	bx	lr
+
+00000184 <TEST_NUM>:
+ 184:	103fe00f 	.word	0x103fe00f
+ 188:	01234567 	.word	0x01234567
+ 18c:	12345678 	.word	0x12345678
+ 190:	23456879 	.word	0x23456879
+ 194:	3456789a 	.word	0x3456789a
+ 198:	456789ab 	.word	0x456789ab
+ 19c:	56789abc 	.word	0x56789abc
+ 1a0:	6789abcd 	.word	0x6789abcd
+ 1a4:	789abcde 	.word	0x789abcde
+ 1a8:	89abcdef 	.word	0x89abcdef
+ 1ac:	ffffffff 	.word	0xffffffff
+ 1b0:	00000000 	.word	0x00000000
+ 1b4:	ff200020 	.word	0xff200020
+ 1b8:	ff200030 	.word	0xff200030

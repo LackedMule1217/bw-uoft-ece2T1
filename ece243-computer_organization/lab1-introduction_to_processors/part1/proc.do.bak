@@ -1,0 +1,36 @@
+# File Name: proc
+# Author: Shi Jie (Barney) Wei
+# Date: 01/15/19
+#
+#
+# INPUT
+# 	A. DIN[8:0]
+#	B. Resetn
+#	C. Clock
+#	D. Run
+# OUTPUT
+#	A. Done
+#	B. BusWires[8:0]
+
+# set the working dir, where all compiled verilog goes
+vlib work
+
+# compile all verilog modules in mux.v to working dir
+# could also have multiple verilog files
+vlog proc.v
+
+# load simulation using mux as the top level simulation module
+vsim proc
+
+# log all signals and add some signals to waveform window
+log {/*}
+# add wave {/*} would add all items in top level simulation module
+add wave {/*}
+
+# 1) Enable clock and reset
+force clock 0 0ns, 1 5ns -r 10ns
+force reset 0 0ns, 1 10ns
+
+# 2) Instruction: mv R0, R1
+force DIN 2#000000001 20ns
+force Run 1 20ns

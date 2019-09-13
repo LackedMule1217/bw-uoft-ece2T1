@@ -1,0 +1,394 @@
+D.1. You will write a one-dimensional integer valued array
+     sort function in C and Python. Start with Python
+
+A. PYTHON
+
+def bubbleSort(array):
+    try:
+        n = len(array)
+        swapped = True
+        while swapped:
+            swapped = False
+            for i in range(1,n):
+                if array[i-1] > array[i]:
+                    temp = array[i-1]
+                    array[i-1] = array[i]
+                    array[i] = temp
+                    swapped = True
+        return [True, array]
+    except:
+        return [False, array]
+
+
+arr = [-1,2,5,3,7,3,2,9,-9,]
+
+print(bubbleSort(arr))
+
+
+
+B. C
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int bubbleSort(int* array, int size);
+
+int* main(void) {
+    int size = 0;
+    int i = 0;
+    printf("Enter the size of the array: ");
+    scanf("%i", &size);
+    int* array = (int*)malloc(size*sizeof(int));
+
+    for(i=0;i<size;i++) {
+        printf("Enter number %d of array: ", i+1);
+        scanf("%d", &array[i]);
+    }
+
+    if(array == NULL) {
+        return -1;
+    }
+    else {
+        int i = 0;
+        for(i=0;i<size;i++) {
+            printf("%3d\n", (bubbleSort(array, size))[i]);
+        }
+        return 0;
+    }
+}
+
+int* bubbleSort(int* array, int size) {
+    int swapped = 1;
+    while(swapped) {
+        int i = 0;
+        swapped = 0;
+
+        for(i=1;i<size;i++) {
+            if(array[i-1] > array[i]) {
+                int temp = array[i-1];
+                array[i-1] = array[i];
+                array[i] = temp;
+                swapped = 1;
+            }
+        }
+    }
+    return array;
+
+}
+
+
+
+
+
+
+
+D.2. You will implement the Gaussian Elimination algorithm
+     forward and backward steps in C and Python. Start with Python
+
+A. PYTHON
+
+
+
+
+B. C
+
+
+
+
+
+
+
+D.3. TEST the above in various ways.
+     Provide the same input to both the python and C versions and make
+     sure your functions provide the same answer.
+
+A. PYTHON
+
+def ge_fw(matrix):
+    try:
+        bool = True
+        while bool:
+            bool = False
+            count = 0
+            for x in range(len(matrix)):
+                for y in range(count, len(matrix[0])):
+                    if matrix[x][count] == 0:
+                        bool = True
+                        for i in range(x+1, len(matrix)):
+                            if matrix[i][y] != 0:
+                                temp = matrix[x]
+                                matrix[x] = matrix[i]
+                                matrix[i] = temp
+                                break
+                    else:
+                        self_div = matrix[x][count]
+                        for i in range(len(matrix[0])):
+                            matrix[x][i] /= float(self_div)
+                        for i in range(1, len(matrix) - y):
+                            factor = (matrix[x + i][y]) / float(matrix[x][y])
+                            for elements in range(len(matrix[0])):
+                                matrix[x + i][elements] -= factor * (matrix[x][elements])
+                        break
+
+                count += 1
+
+        for x in range(len(matrix)):
+            for y in range(len(matrix[0])):
+                matrix[x][y] = round(matrix[x][y], 5)
+
+        return matrix
+
+    except:
+        return False
+
+
+
+def ge_bw(matrix):
+    try:
+        count = 0
+        xy = 0 if len(matrix[0]) - len(matrix) <= 0 else len(matrix[0]) - len(matrix)
+        for x in range(len(matrix)-1,-1,-1):
+            for y in range(len(matrix[0])-1-xy,count-1,-1):
+                if matrix[x][y] == 0:
+                    for i in range(x-1, -1, -1):
+                        if matrix[i][y] != 0:
+                            temp = matrix[x]
+                            matrix[x] = matrix[i]
+                            matrix[i] = temp
+                            break
+                else:
+                    self_div = matrix[x][y]
+                    for i in range(len(matrix[0])):
+                        matrix[x][i]/=self_div
+                    for i in range(len(matrix)-count-1,0,-1):
+                        factor = (matrix[x-i][y])/(matrix[x][y])
+                        for elements in range(len(matrix[0])):
+                            matrix[x-i][elements] -= factor*(matrix[x][elements])
+                    break
+
+            count += 1
+
+        for x in range(len(matrix)):
+            if matrix[x] == [0 for i in range(len(matrix[0]))]:
+                temp = matrix[x]
+                for i in range(x, len(matrix)-1):
+                    matrix[i] = matrix[i+1]
+                matrix[len(matrix)-1] = temp
+
+        for x in range(len(matrix)):
+            for y in range(len(matrix[0])):
+                matrix[x][y] = round(matrix[x][y], 4)
+
+        return matrix
+
+    except:
+        return False
+
+matrix = [[0, 8, 7, 4], [9, 7, 7, 0],[4, 2, 5, 0]]
+#matrix = [[1, 1, 2],[0, 4, 2]]
+#matrix = [[0,1,2],[3,4,5],[6,7,8]]
+#matrix = [[1,2],[3,4]]
+#matrix = [[0,1],[2,3]]
+#matrix = [[0,1,2],[3,4,5]]
+#print(ge_fw(matrix))
+print(ge_bw(ge_fw(matrix)))
+#print(ge_bw(matrix))
+
+
+B. C
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int ge_fw(float *matrix, int rows, int cols, float *matrix_out);
+int ge_bw(float *matrix, int rows, int cols, float *matrix_out);
+
+int main(void) {
+    int rows,cols=0;
+    float* m,* n=NULL;
+    int r,c,idx=0;
+
+    printf("How many rows? ");
+    scanf("%d",&rows);
+    printf("How many cols? ");
+    scanf("%d",&cols);
+
+    if(rows > cols) {
+        return -1;
+    }
+
+    m = (float* )malloc(sizeof(float)*rows*cols);
+    n = (float* )malloc(sizeof(float)*rows*cols);
+
+    if ((m == NULL) || (n == NULL)) {
+        printf("ERR: failed to allocate m; malloc failed\n");
+        return -1;
+    }
+
+    for(r=0;r<rows;r++) {
+        for(c=0;c<cols;c++) {
+            m[r*cols + c] = idx;
+            idx++;
+
+            printf("%4.1f", m[r*cols + c]);
+        }
+    }
+
+    ge_fw(m, rows, cols, n);
+    ge_bw(m, rows, cols, n);
+
+    free(m);
+    free(n);
+    return 0;
+}
+
+int ge_fw(float *matrix, int rows, int cols, float *matrix_out) {
+    int r,c,i,n,count=0;
+    float factor,self_div=0;
+    float* tempcols=(float*)malloc(sizeof(float)*cols);
+    if ((matrix == NULL) || (matrix_out == NULL)) {
+        return -1;
+    }
+    count = 0;
+    for(r=0;r<rows;r++) {
+        for(c=0;c<cols;c++) {
+            if(matrix[r*cols + count] == 0) {
+                int rs = r+1;
+                if(rs == rows) {
+                    break;
+                }
+                for(rs;rs<rows;rs++) {
+                    if(matrix[rs*cols + count] != 0) {
+                        for(i=0;i<cols;i++) {
+                            tempcols[i] = matrix[r*cols + i];
+                        }
+                        for(i=0;i<cols;i++) {
+                            matrix[r*cols + i] = matrix[(rs)*cols + i];
+                        }
+                        for(i=0;i<cols;i++) {
+                            matrix[(rs)*cols + i] = tempcols[i];
+                        }
+                        break;
+                    }
+                }
+            }
+            if(matrix[r*cols + count] != 0) {
+                self_div = matrix[r*cols + count];
+                printf("\n r*cols: %i", r*cols);
+                printf("\n count: %i", count);
+                for(i=0;i<cols;i++) {
+                    matrix[r*cols + i] /= self_div;
+                    printf("\n self-div: %f", self_div);
+                }
+                for(i=1;i<(rows - r);i++) {
+                    factor = (matrix[(r+i)*cols + count]) / (matrix[r*cols + count]);
+                    printf("\n r-c: %i", rows - c);
+                    printf("\n r: %i", r);
+                    printf("\n c: %i", c);
+                    printf("\n sizeofmatrix: %i", sizeof(matrix));
+                    printf("\n first: %f", matrix[(r+i)*cols + c]);
+                    printf("\n second: %f", matrix[r*cols + c]);
+                    printf("\n sum1: %i", (r+i)*cols + c);
+                    printf("\n sum2: %i", r*cols + c);
+
+                    for(n=0;n<cols;n++) {
+                        matrix[(r+i)*cols + n] -= factor*(matrix[r*cols + n]);
+                    }
+                }
+            }
+        }
+        count++;
+    }
+    printf("\nge_fw: ");
+    for(r=0;r<rows;r++) {
+        for(c=0;c<cols;c++) {
+            matrix_out[r*cols + c] = matrix[r*cols + c];
+            printf("%6.2f", matrix_out[r*cols + c]);
+        }
+    }
+    free(tempcols);
+    return 0;
+}
+
+int ge_bw(float *matrix, int rows, int cols, float *matrix_out) {
+    int r,c,i,n,count=0;
+    int countd=cols-1;
+    float factor,self_div=0;
+    float* tempcols=(float*)malloc(sizeof(float)*cols);
+    if ((matrix == NULL) || (matrix_out == NULL)) {
+        return -1;
+    }
+    for(r=rows;r>-1;r--) {
+        for(c=cols;c>(countd);c--) {
+            if(matrix[r*cols + countd] == 0) {
+                int rs = r-1;
+                if(rs == -1) {
+                    break;
+                }
+                for(rs;rs>-1;rs--) {
+                    if(matrix[rs*cols + countd] != 0) {
+                        for(i=0;i<cols;i++) {
+                            tempcols[i] = matrix[r*cols + i];
+                        }
+                        for(i=0;i<cols;i++) {
+                            matrix[r*cols + i] = matrix[(rs)*cols + i];
+                        }
+                        for(i=0;i<cols;i++) {
+                            matrix[(rs)*cols + i] = tempcols[i];
+                        }
+                        break;
+                    }
+                }
+            }
+            if(matrix[r*cols + countd] != 0) {
+                self_div = matrix[r*cols + countd];
+                printf("\ncd: %i, s_d: %f\n", countd, self_div);
+                for(i=0;i<cols;i++) {
+                    matrix[r*cols + i] /= self_div;
+                }
+                /*for(i=0;i<countd-1;i++) {
+                    factor = (matrix[(r-i)*cols + countd]) / (matrix[r*cols + countd]);
+                    for(n=0;n<cols;n++) {
+                        matrix[(r-i)*cols + n] -= factor*(matrix[(r)*cols + n]);
+                    }
+                }*/
+                break;
+            }
+        }
+        count++;
+        countd--;
+    }
+
+    /*for(r=0;i<rows;i++) {
+        count = 0;
+        for(c=0;n<cols;n++) {
+            if(matrix[r*cols + c] == 0) {
+                count++;
+            }
+            if(count==cols) {
+                for(i=0;i<cols;i++) {
+                    tempcols[i] = matrix[r*cols + i];
+                }
+                for(i=r;i<rows-1;i--) {
+                    for(n=0;n<cols;n++) {
+                        matrix[i*cols + n] = matrix[(i+1)*cols + n];
+                    }
+                }
+                for(i=0;i<cols;i++) {
+                    matrix[(rows-1)*cols + i] = tempcols[i] ;
+                }
+            }
+
+        }
+    }*/
+
+    printf("\nge_bw: ");
+    for(r=0;r<rows;r++) {
+        for(c=0;c<cols;c++) {
+            matrix_out[r*cols + c] = matrix[r*cols + c];
+            printf("%6.2f", matrix_out[r*cols + c]);
+        }
+    }
+    free(tempcols);
+    return 0;
+}

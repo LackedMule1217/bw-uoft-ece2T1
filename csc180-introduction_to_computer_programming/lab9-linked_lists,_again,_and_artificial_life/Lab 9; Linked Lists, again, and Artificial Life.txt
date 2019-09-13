@@ -1,0 +1,54 @@
+I. C Part
+
+Modify your linked list from lab 8 to make it a
+doubly-linked list.
+
+With a singly-linked list, each node pointed to the next node.
+With a doubly-linked list, each node will point to both its next
+node and its prior node: call this the "prev" node.
+
+1. Modify the struct accordingly.
+2. Modify all functions that SET pointers in lab 8 to now set both
+the next and the prev pointers.
+3. Test it
+4. Submit it as ll.c and ll.h
+
+
+
+
+
+
+
+II. Python Part:
+
+Exercise:
+Now that you see HOW it works, I want you to roll your own.
+
+1. Create "rule.py". Rule will take two args: a value and a list.
+It should sum the list. Based on value:
+   * if value is 1:
+      * if sum is 2 or 3: return 1; else return 0
+   * otherwise:
+      * if sum is 3: return 1; else return 0
+
+2. Modify conwaylib to create the evolve function, which will take as
+argument a function called rule. Since evolve is defined within the class
+how many arguments will it have?
+
+The function should:
+a. construct a next state, which will have the same dimensions as the
+conwaylib structure, but set to 0
+b. to set the elements of next state, you will apply rule to each element
+of the conwaylib structure and record the return value of rule as the
+value of the element you're setting
+c. rule takes in two arguments:
+   -> when setting element r,c of next, value will be the value of
+      the conway structure at r,c
+   -> when setting element r,c of next, the list will be the value
+      of getNeighbours called for element r,c
+
+3. Test this using my version of conway.py and your versions of
+rule.py and conwaylib.py and confirm you see the EXACT SAME THING
+as what my version shows you.
+
+4. submit rule.py and conwaylib.py

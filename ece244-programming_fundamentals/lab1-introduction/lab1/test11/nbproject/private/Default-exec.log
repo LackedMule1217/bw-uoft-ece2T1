@@ -1,0 +1,11 @@
+called: C:\MinGW\bin\g++.exe
+	D:\Barney\OneDrive - University of Toronto\2. Homework\4. Programming Fundamentals (ECE244)\Lab 1 Material\lab1\test11
+	C:\MinGW\bin\g++.exe
+	-std=c++11
+	-Wall
+	-O0
+	-g
+	test11.cpp
+	-o
+	test11
+

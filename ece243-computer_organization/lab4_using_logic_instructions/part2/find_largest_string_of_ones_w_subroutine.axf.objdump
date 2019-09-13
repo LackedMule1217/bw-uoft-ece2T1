@@ -1,0 +1,84 @@
+
+D:/Lab 4; Using Logic Instructions/part2/find_largest_string_of_ones_w_subroutine.axf:     file format elf32-littlearm
+
+
+Disassembly of section .text:
+
+00000000 <__cs3_interrupt_vector>:
+
+			.text 						// executable code follows
+			.global _start
+			
+_start:
+			MOV 	R3, #TEST_NUM 		// load the memory address of the data word array
+   0:	e3a03050 	mov	r3, #80	; 0x50
+			MOV		R5, #0				// initially sets the result to 0
+   4:	e3a05000 	mov	r5, #0
+
+00000008 <LOOP>:
+LOOP:		LDR 	R1, [R3], #4		// copies the data word array element and then increment address
+   8:	e4931004 	ldr	r1, [r3], #4
+			CMP		R1, #0				// checks if reached end of array
+   c:	e3510000 	cmp	r1, #0
+			BEQ		END
+  10:	0a000003 	beq	24 <END>
+			BL		ONES				// calls ONES subroutine
+  14:	eb000003 	bl	28 <ONES>
+			CMP		R5, R0				// compares if current largest 1s > R0
+  18:	e1550000 	cmp	r5, r0
+			MOVLT	R5, R0				// stores R0 into R5 if current largest 1s < R0
+  1c:	b1a05000 	movlt	r5, r0
+			B		LOOP
+  20:	eafffff8 	b	8 <LOOP>
+
+00000024 <END>:
+
+END: 		B 		END
+  24:	eafffffe 	b	24 <END>
+
+00000028 <ONES>:
+ * Performs callee-save
+ * Input: 		R1 - input data
+ * Usage:		R2 - stores: LSR of input data || LSR of input data AND input data
+ * Output: 		R0 - result: number of consecutive 1s
+ */
+ONES:		PUSH	{R1-R12}			// callee-save to stack
+  28:	e92d1ffe 	push	{r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12}
+			MOV		R0, #0
+  2c:	e3a00000 	mov	r0, #0
+
+00000030 <ONES_LOOP>:
+			
+ONES_LOOP:	CMP		R1, #0				// loop until the data contains no more 1's
+  30:	e3510000 	cmp	r1, #0
+			BEQ		ONES_END
+  34:	0a000003 	beq	48 <ONES_END>
+			ADD		R0, #1				// increment the number of ones counter
+  38:	e2800001 	add	r0, r0, #1
+			LSR		R2, R1, #1			// logical shift right the input data and store in R2
+  3c:	e1a020a1 	lsr	r2, r1, #1
+			AND		R1, R1, R2			// bitwise and input data with LSR data and store in R2
+  40:	e0011002 	and	r1, r1, r2
+			B		ONES_LOOP
+  44:	eafffff9 	b	30 <ONES_LOOP>
+
+00000048 <ONES_END>:
+			
+ONES_END:	POP		{R1-R12}			// callee-retrieve from stack
+  48:	e8bd1ffe 	pop	{r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12}
+			BX		LR					// return to caller		
+  4c:	e12fff1e 	bx	lr
+
+00000050 <TEST_NUM>:
+  50:	103fe00f 	.word	0x103fe00f
+  54:	01234567 	.word	0x01234567
+  58:	12345678 	.word	0x12345678
+  5c:	23456879 	.word	0x23456879
+  60:	3456789a 	.word	0x3456789a
+  64:	456789ab 	.word	0x456789ab
+  68:	56789abc 	.word	0x56789abc
+  6c:	6789abcd 	.word	0x6789abcd
+  70:	789abcde 	.word	0x789abcde
+  74:	89abcdef 	.word	0x89abcdef
+  78:	ffffffff 	.word	0xffffffff
+  7c:	00000000 	.word	0x00000000

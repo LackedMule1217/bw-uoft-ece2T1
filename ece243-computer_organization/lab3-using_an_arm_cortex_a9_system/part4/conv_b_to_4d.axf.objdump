@@ -1,0 +1,83 @@
+
+D:/ECE243/Lab 3; Using an ARM Cortex-A9 System/part4/conv_b_to_4d.axf:     file format elf32-littlearm
+
+
+Disassembly of section .text:
+
+00000000 <__cs3_interrupt_vector>:
+
+			.text 						// executable code follows
+			.global _start
+			
+_start:
+			MOV 	R4, #N
+   0:	e3a04060 	mov	r4, #96	; 0x60
+			LDR 	R0, [R4] 			// R0 holds N; parameter for DIVIDE goes in R0
+   4:	e5940000 	ldr	r0, [r4]
+			MOV		R1, #10				// set divisor to 10
+   8:	e3a0100a 	mov	r1, #10
+			BL 		DIVIDE
+   c:	eb000007 	bl	30 <DIVIDE>
+			MOV 	R5, #Digits			// R5 points to the first entry of the digits array
+  10:	e3a05064 	mov	r5, #100	; 0x64
+			MOV		R1, #4				// stores the number of digits
+  14:	e3a01004 	mov	r1, #4
+
+00000018 <POPSTACK>:
+POPSTACK:	SUBS	R1, #1				// decrement counter
+  18:	e2511001 	subs	r1, r1, #1
+			BLT		END					// end program if decrement counter becomes negative
+  1c:	ba000002 	blt	2c <END>
+			LDRB	R2, [SP], #4		// loads the byte digit from the stack
+  20:	e4dd2004 	ldrb	r2, [sp], #4
+			STRB 	R2, [R5], #1 		// stores the digit to Digits
+  24:	e4c52001 	strb	r2, [r5], #1
+			B		POPSTACK
+  28:	eafffffa 	b	18 <POPSTACK>
+
+0000002c <END>:
+END: 		B 		END
+  2c:	eafffffe 	b	2c <END>
+
+00000030 <DIVIDE>:
+				R1 - divisor
+ * Variables:	R2 - quotient
+				R4 - number of digits to show (4 in this case)
+ * Returns: stores each digit in the stack with the LSB on the top of the stack
+ */
+DIVIDE:		MOV		R4, #4				// stores the number of digits
+  30:	e3a04004 	mov	r4, #4
+
+00000034 <DIVIDE1>:
+DIVIDE1:	MOV 	R2, #0				// set the quotient to 0
+  34:	e3a02000 	mov	r2, #0
+			SUBS	R4, #1				// decrement digit counter
+  38:	e2544001 	subs	r4, r4, #1
+			BLT		DIV_END				// end subroutine if counter becomes negative
+  3c:	ba000006 	blt	5c <DIV_END>
+
+00000040 <DIVIDE2>:
+DIVIDE2:	CMP 	R0, R1				// compares the value between the binary digit and the divisor value
+  40:	e1500001 	cmp	r0, r1
+			SUBGE	R0, R1				// if binary digit >= divisor, subtract the two
+  44:	a0400001 	subge	r0, r0, r1
+			ADDGE	R2, #1				// add 1 to the quotient
+  48:	a2822001 	addge	r2, r2, #1
+			BGE		DIVIDE2
+  4c:	aafffffb 	bge	40 <DIVIDE2>
+			STRB	R0, [SP, #-4]!		// if binary digit < divisor, push binary digit to stack
+  50:	e56d0004 	strb	r0, [sp, #-4]!
+			MOV		R0, R2				// set binary digit to 0
+  54:	e1a00002 	mov	r0, r2
+			B		DIVIDE1				// move to the next digit
+  58:	eafffff5 	b	34 <DIVIDE1>
+
+0000005c <DIV_END>:
+DIV_END:	BX 		LR
+  5c:	e12fff1e 	bx	lr
+
+00000060 <N>:
+  60:	00002694 	.word	0x00002694
+
+00000064 <Digits>:
+  64:	00000000 	.word	0x00000000

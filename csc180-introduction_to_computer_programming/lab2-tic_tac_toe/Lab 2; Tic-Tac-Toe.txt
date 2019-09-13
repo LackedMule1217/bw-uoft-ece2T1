@@ -1,0 +1,76 @@
+list = [" " for i in range(9)]
+bool = True
+
+def print_grid():
+    print("-------")
+    print("|{}|{}|{}|".format(list[0], list[1], list[2]))
+    print("-------")
+    print("|{}|{}|{}|".format(list[3], list[4], list[5]))
+    print("-------")
+    print("|{}|{}|{}|".format(list[6], list[7], list[8]))
+    print("-------")
+
+def get_player_1_input():
+    while True:
+        try:
+            player_1_input = int(input("PLAYER 1: Enter an integer 1-9 to place X: ")) - 1
+            assert player_1_input >= 0 and player_1_input <= 8 and list[player_1_input] == " "
+            return player_1_input
+        except:
+            print("PLAYER 1: Must enter an integer value between 1-9 for an empty space on the grid!")
+            continue
+
+def get_player_2_input():
+    while True:
+        try:
+            player_2_input = int(input("PLAYER 2: Enter an integer 1-9 to place O: ")) - 1
+            assert player_2_input >= 0 and player_2_input <= 8 and list[player_2_input] == " "
+            return player_2_input
+        except:
+            print("PLAYER 2: Must enter an integer value between 1-9 for an empty space on the grid!")
+            continue
+
+def analyze_grid(winner):
+    global bool
+    # Horizontal
+    for i in range(0,9,3):
+        if list[i] == list[i + 1] == list[i + 2] and " " not in str(list[i]):
+            print_grid()
+            print(winner,"won!")
+            bool = False
+            return
+    # Vertical
+    for i in range(0,3):
+        if list[i] == list[i + 3] == list[i + 6] and " " not in str(list[i]):
+            print_grid()
+            print(winner,"won!")
+            bool = False
+            return
+    # Diagonal
+    if (list[0] == list[4] == list[8] or list[2] == list[4] == list[6]) and " " not in str(list[4]):
+        print_grid()
+        print(winner,"won!")
+        bool = False
+        return
+
+    if " " not in str(list[:9]):
+        print_grid()
+        print("It's a draw!")
+        bool = False
+        return
+
+def tic_tac_toe():
+    while bool:
+        print_grid()
+        list[get_player_1_input()]="X"
+        analyze_grid("Player 1")
+
+        if bool==False:
+            break
+
+        print_grid()
+        list[get_player_2_input()]="O"
+        analyze_grid("Player 2")
+        print(list)
+
+tic_tac_toe()

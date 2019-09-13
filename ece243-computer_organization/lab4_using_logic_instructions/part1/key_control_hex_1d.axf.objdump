@@ -1,0 +1,122 @@
+
+D:/Lab 5; Using Input Output Devices/part1/key_control_hex_1d.axf:     file format elf32-littlearm
+
+
+Disassembly of section .text:
+
+00000000 <__cs3_interrupt_vector>:
+			.global _start
+			.equ	HEX_ADDR, 0xFF200020	// stores HEX[3:0] mem address
+			.equ	KEY_ADDR, 0xFF200050	// stores KEYs mem address
+			
+_start:
+			LDR		R4, =HEX			// set pointer to beginning of HEX array
+   0:	e59f40a8 	ldr	r4, [pc, #168]	; b0 <HEX+0x10>
+			ADD		R11, R4, #15		// set pointer to end of HEX array
+   4:	e284b00f 	add	r11, r4, #15
+			LDR		R5, =HEX_ADDR		// stores hex address in R5
+   8:	e59f50a4 	ldr	r5, [pc, #164]	; b4 <HEX+0x14>
+			LDR		R6, =KEY_ADDR		// stores key address in R6
+   c:	e59f60a4 	ldr	r6, [pc, #164]	; b8 <HEX+0x18>
+			MOV		R7,	#0				// stores key toggle state; hex will only be affected when key is depressed
+  10:	e3a07000 	mov	r7, #0
+
+00000014 <loop>:
+loop:		LDR		R8, [R6]			// load key values into R8
+  14:	e5968000 	ldr	r8, [r6]
+			MOVS	R8, R8				// set flags
+  18:	e1b08008 	movs	r8, r8
+			MOVGT	R7, #1				// set key toggle to true if keys are pressed
+  1c:	c3a07001 	movgt	r7, #1
+			MOVGT	R9, R8				// copy key values to R9 if keys are pressed
+  20:	c1a09008 	movgt	r9, r8
+			BGT		loop				// loop until key is depressed
+  24:	cafffffa 	bgt	14 <loop>
+			CMPEQ	R7, #0
+  28:	03570000 	cmpeq	r7, #0
+			BEQ		loop				// loop until a key is pressed
+  2c:	0afffff8 	beq	14 <loop>
+
+00000030 <key0>:
+										// case statement: keys have been depressed; check key value and show hex
+key0:		CMP		R9, #0b1			// KEY0 has depressed; set HEX0 to 0
+  30:	e3590001 	cmp	r9, #1
+			BNE		key1
+  34:	1a000003 	bne	48 <key1>
+			LDRB	R4, =HEX			// reset pointer to beginning of HEX array
+  38:	e5df4070 	ldrb	r4, [pc, #112]	; b0 <HEX+0x10>
+			LDRB	R10, [R4]
+  3c:	e5d4a000 	ldrb	r10, [r4]
+			STR		R10, [R5]			// set HEX0 to 0
+  40:	e585a000 	str	r10, [r5]
+			B		loop_end			// loop until a key is pressed
+  44:	ea000012 	b	94 <loop_end>
+
+00000048 <key1>:
+			
+key1:		CMP		R9, #0b10			// KEY1 has depressed; increment HEX0 value
+  48:	e3590002 	cmp	r9, #2
+			BNE		key2
+  4c:	1a000005 	bne	68 <key2>
+			CMP		R4, R11				// if reached end of HEX array, reset
+  50:	e154000b 	cmp	r4, r11
+			LDREQB	R4, =HEX
+  54:	05df4054 	ldrbeq	r4, [pc, #84]	; b0 <HEX+0x10>
+			LDREQB	R10, [R4]
+  58:	05d4a000 	ldrbeq	r10, [r4]
+			LDRNEB	R10, [R4, #1]!
+  5c:	15f4a001 	ldrbne	r10, [r4, #1]!
+			STR		R10, [R5]			// set HEX0 to 0
+  60:	e585a000 	str	r10, [r5]
+			B		loop_end			// loop until a key is pressed
+  64:	ea00000a 	b	94 <loop_end>
+
+00000068 <key2>:
+			
+key2:		CMP		R9, #0b100			// KEY2 has depressed; decrement HEX0 value
+  68:	e3590004 	cmp	r9, #4
+			BNE		key3
+  6c:	1a000005 	bne	88 <key3>
+			CMP		R4, #HEX			// if reached the beginning of array, reset to end
+  70:	e35400a0 	cmp	r4, #160	; 0xa0
+			MOVEQ	R4, R11
+  74:	01a0400b 	moveq	r4, r11
+			LDREQB	R10, [R4]!
+  78:	05f4a000 	ldrbeq	r10, [r4, #0]!
+			LDRNEB	R10, [R4, #-1]!
+  7c:	1574a001 	ldrbne	r10, [r4, #-1]!
+			STR		R10, [R5]			// set HEX0 to 0
+  80:	e585a000 	str	r10, [r5]
+			B		loop_end			// loop until a key is pressed
+  84:	ea000002 	b	94 <loop_end>
+
+00000088 <key3>:
+			
+										// KEY3 has depressed; blank HEX0 value
+key3:		LDRB	R4, =HEX_BLANK		// reset pointer to beginning of HEX array
+  88:	e5df402c 	ldrb	r4, [pc, #44]	; bc <HEX+0x1c>
+			LDRB	R10, [R4], #4
+  8c:	e4d4a004 	ldrb	r10, [r4], #4
+			STR		R10, [R5]			// set HEX0 to 0
+  90:	e585a000 	str	r10, [r5]
+
+00000094 <loop_end>:
+										// loop until a key is pressed
+			
+loop_end:	MOV		R7,	#0				// reset key toggle state
+  94:	e3a07000 	mov	r7, #0
+			B		loop				// default case: loop 
+  98:	eaffffdd 	b	14 <loop>
+
+0000009c <HEX_BLANK>:
+  9c:	00000000 	.word	0x00000000
+
+000000a0 <HEX>:
+  a0:	4f5b063f 	.word	0x4f5b063f
+  a4:	077d6d66 	.word	0x077d6d66
+  a8:	7c77677f 	.word	0x7c77677f
+  ac:	71795e39 	.word	0x71795e39
+  b0:	000000a0 	.word	0x000000a0
+  b4:	ff200020 	.word	0xff200020
+  b8:	ff200050 	.word	0xff200050
+  bc:	0000009c 	.word	0x0000009c

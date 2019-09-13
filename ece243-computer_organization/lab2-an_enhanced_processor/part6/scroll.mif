@@ -1,0 +1,101 @@
+WIDTH = 16;
+DEPTH = 256;
+ADDRESS_RADIX = HEX;
+DATA_RADIX = HEX;
+
+CONTENT
+BEGIN
+0		: 0070;		% mvi  r6, 0x0100 %
+1		: 0100;
+2		: 0048;		% mvi  r1, 0x0001 %
+3		: 0001;
+4		: 0001;		% mv   r0, r1 %
+5		: 0050;		% mvi  r2, 0x0056 %
+6		: 0056;
+7		: 002a;		% mv   r5, r2 %
+8		: 0060;		% mvi  r4, 0x2000 %
+9		: 2000;
+a		: 00f1;		% sub  r6, r1 %
+b		: 0146;		% st   r0, r6 %
+c		: 00f1;		% sub  r6, r1 %
+d		: 0156;		% st   r2, r6 %
+e		: 0040;		% mvi  r0, 0x0006 %
+f		: 0006;
+10		: 0017;		% mv   r2, r7 %
+11		: 011d;		% ld   r3, r5 %
+12		: 015c;		% st   r3, r4 %
+13		: 00a9;		% add  r5, r1 %
+14		: 00a1;		% add  r4, r1 %
+15		: 00c1;		% sub  r0, r1 %
+16		: 01ba;		% mvnz r7, r2 %
+17		: 0116;		% ld   r2, r6 %
+18		: 00b1;		% add  r6, r1 %
+19		: 0106;		% ld   r0, r6 %
+1a		: 00b1;		% add  r6, r1 %
+1b		: 00d0;		% sub  r2, r0 %
+1c		: 0068;		% mvi  r5, 0x004b %
+1d		: 004b;
+1e		: 0060;		% mvi  r4, 0x0029 %
+1f		: 0029;
+20		: 00ea;		% sub  r5, r2 %
+21		: 01bc;		% mvnz r7, r4 %
+22		: 0091;		% add  r2, r1 %
+23		: 0091;		% add  r2, r1 %
+24		: 0068;		% mvi  r5, 0xffff %
+25		: ffff;
+26		: 00e8;		% sub  r5, r0 %
+27		: 00a9;		% add  r5, r1 %
+28		: 0005;		% mv   r0, r5 %
+29		: 0068;		% mvi  r5, 0x005c %
+2a		: 005c;
+2b		: 0060;		% mvi  r4, 0x0036 %
+2c		: 0036;
+2d		: 00ea;		% sub  r5, r2 %
+2e		: 01bc;		% mvnz r7, r4 %
+2f		: 00d1;		% sub  r2, r1 %
+30		: 00d1;		% sub  r2, r1 %
+31		: 0068;		% mvi  r5, 0xffff %
+32		: ffff;
+33		: 00e8;		% sub  r5, r0 %
+34		: 00a9;		% add  r5, r1 %
+35		: 0005;		% mv   r0, r5 %
+36		: 00f1;		% sub  r6, r1 %
+37		: 0146;		% st   r0, r6 %
+38		: 0058;		% mvi  r3, 0x1000 %
+39		: 1000;
+3a		: 0153;		% st   r2, r3 %
+3b		: 0058;		% mvi  r3, 0x22b8 %
+3c		: 22b8;
+3d		: 002f;		% mv   r5, r7 %
+3e		: 0040;		% mvi  r0, 0x3000 %
+3f		: 3000;
+40		: 0120;		% ld   r4, r0 %
+41		: 00a1;		% add  r4, r1 %
+42		: 0007;		% mv   r0, r7 %
+43		: 00e1;		% sub  r4, r1 %
+44		: 01b8;		% mvnz r7, r0 %
+45		: 00d9;		% sub  r3, r1 %
+46		: 01bd;		% mvnz r7, r5 %
+47		: 0106;		% ld   r0, r6 %
+48		: 00b1;		% add  r6, r1 %
+49		: 0078;		% mvi  r7, 0x0007 %
+4a		: 0007;
+4b		: 0000;		% data %
+4c		: 0000;		% data %
+4d		: 0000;		% data %
+4e		: 0000;		% data %
+4f		: 0000;		% data %
+50		: 0000;		% data %
+51		: 0000;		% data %
+52		: 0000;		% data %
+53		: 004f;		% data %
+54		: 0066;		% data %
+55		: 005b;		% data %
+56		: 0040;		% data %
+57		: 0079;		% data %
+58		: 0039;		% data %
+59		: 0079;		% data %
+5a		: 0000;		% data %
+5b		: 0000;		% data %
+5c		: 0000;		% data %
+END;

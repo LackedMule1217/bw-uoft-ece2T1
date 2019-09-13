@@ -1,0 +1,247 @@
+1. Section I: (tttlib.py)
+
+class ttt:
+
+    store = [0 for i in range(9)]
+
+    def printBoard(self):
+        T = self.store
+        list = [i for i in range(9)]
+        try:
+            assert len(T) == 9
+            for i in T:
+                assert i >= 0 and i <=2
+                assert type(i) == int
+
+            for i in range(9):
+                if T[i] == 0:
+                    list[i] = i
+                elif T[i] == 1:
+                    list[i] = "X"
+                elif T[i] == 2:
+                    list[i] = "O"
+                else:
+                    assert 1 == 2
+
+            print(" {} | {} | {} ".format(list[0], list[1], list[2]))
+            print("---|---|---")
+            print(" {} | {} | {} ".format(list[3], list[4], list[5]))
+            print("---|---|---")
+            print(" {} | {} | {} ".format(list[6], list[7], list[8]))
+
+            return True
+
+        except:
+            return False
+
+    def analyzeBoard(self):
+        T = self.store
+        try:
+            assert len(T) == 9
+            for i in T:
+                assert i >= 0 and i <=2
+                assert type(i) == int
+
+            # Horizontal
+            for i in range(0,9,3):
+                if T[i] == T[i + 1] == T[i + 2] != 0:
+                    return T[i]
+            # Vertical
+            for i in range(0,3):
+                if T[i] == T[i + 3] == T[i + 6] != 0:
+                    return T[i]
+            # Diagonal
+            if (T[0] == T[4] == T[8] or T[2] == T[4] == T[6]) and T[4] != 0:
+                return T[4]
+
+            if all(T[i] != 0 for i in range(9)):
+                return 3
+
+            return 0
+
+        except:
+            return -1
+
+    def genRandomMove(self, player):
+        T = self.store
+        from random import randint
+
+        try:
+            assert len(T) == 9
+            assert player == 1 or player == 2
+            for i in T:
+                assert i >= 0 and i <=2
+                assert type(i) == int
+            if all(T[i] != 0 for i in range(len(T))):
+                assert 1 == 2
+
+            while True:
+                num = randint(0,8)
+
+                if T[num] == 0:
+                    return num
+                else:
+                    continue
+
+        except:
+            return -1
+
+    def genWinningMove(self, player):
+        T = self.store
+        try:
+            assert len(T) == 9
+            assert player == 1 or player == 2
+            for i in T:
+                assert i >= 0 and i <=2
+                assert type(i) == int
+            if all(T[i] != 0 for i in range(len(T))):
+                assert 1 == 2
+
+            # Horizontal
+            for i in range(0,9,3):
+                if (T[i] == T[i + 1] == player) and T[i + 2] == 0:
+                    return i + 2
+                if (T[i] == T[i + 2] == player) and T[i + 1] == 0:
+                    return i + 1
+                if (T[i + 1] == T[i + 2] == player) and T[i] == 0:
+                    return i
+            # Vertical
+            for i in range(0,3):
+                if (T[i] == T[i + 3] == player) and T[i + 6] == 0:
+                    return 1 + 6
+                if (T[i] == T[i + 6] == player) and T[i + 3] == 0:
+                    return 1 + 3
+                if (T[i + 3] == T[i + 6] == player) and T[i] == 0:
+                    return 1
+
+            # Diagonal
+            if (T[0] == T[4] == player) and T[8] == 0:
+                return 8
+            if (T[0] == T[8] == player) and T[4] == 0:
+                return 4
+            if (T[4] == T[8] == player) and T[0] == 0:
+                return 0
+            if (T[2] == T[4] == player) and T[6] == 0:
+                return 6
+            if (T[2] == T[6] == player) and T[4] == 0:
+                return 4
+            if (T[4] == T[6] == player) and T[2] == 0:
+                return 2
+            else:
+                return -1
+
+        except:
+            return -1
+
+    def genNonLoser(self, player):
+        T = self.store
+        try:
+            assert len(T) == 9
+            assert player == 1 or player == 2
+            for i in T:
+                assert i >= 0 and i <=2
+                assert type(i) == int
+            if all(T[i] != 0 for i in range(len(T))):
+                assert 1 == 2
+
+            # Horizontal
+            for i in range(0,9,3):
+                if (T[i] == T[i + 1] != player and T[i] != 0) and T[i + 2] == 0:
+                    return i + 2
+                if (T[i] == T[i + 2] != player and T[i] != 0) and T[i + 1] == 0:
+                    return i + 1
+                if (T[i + 1] == T[i + 2] != player and T[i+1] != 0) and T[i] == 0:
+                    return i
+            # Vertical
+            for i in range(0,3):
+                if (T[i] == T[i + 3] != player and T[i] != 0) and T[i + 6] == 0:
+                    return 1 + 6
+                if (T[i] == T[i + 6] != player and T[i] != 0) and T[i + 3] == 0:
+                    return 1 + 3
+                if (T[i + 3] == T[i + 6] != player and T[i+3] != 0) and T[i] == 0:
+                    return 1
+
+            # Diagonal
+            if (T[0] == T[4] != player and T[0] != 0) and T[8] == 0:
+                return 8
+            if (T[0] == T[8] != player and T[0] != 0) and T[4] == 0:
+                return 4
+            if (T[4] == T[8] != player and T[4] != 0) and T[0] == 0:
+                return 0
+            if (T[2] == T[4] != player and T[2] != 0) and T[6] == 0:
+                return 6
+            if (T[2] == T[6] != player and T[2] != 0) and T[4] == 0:
+                return 4
+            if (T[4] == T[6] != player and T[4] != 0) and T[2] == 0:
+                return 2
+            else:
+                return -1
+
+        except:
+            return -1
+
+    def Move(self, x, player):
+        T = self.store
+        try:
+            assert x >= 0 and x <= 8
+            assert player == 1 or player == 2
+
+            if T[x] == 0:
+                T[x] = player
+                return True
+            else:
+                return False
+
+        except:
+            return False
+
+
+T = [0,0,0,0,2,2,0,0,0]
+
+player = 1
+
+print(T)
+
+print(ttt().printBoard())
+print()
+print(ttt().analyzeBoard())
+print()
+print(ttt().genRandomMove(player))
+print()
+print(ttt().genWinningMove(player))
+print()
+print(ttt().genNonLoser(player))
+print()
+print(ttt().Move(8, 1))
+
+
+
+
+
+
+
+2. Section II: (stack.py)
+
+class stack:
+    store = []
+
+    def push(self, x):
+        self.store = self.store + [x]
+
+    def pop(self):
+        rval = self.store[len(self.store)]
+        self.store = self.store[0:len(self.store)-1]
+        return rval
+
+    def disp(self):
+        for i in range(0, len(self.store)):
+            print(self.store[i], "<--top--" if i == 0 else "")
+
+
+x = stack()
+
+x.push(1)
+x.push(100)
+x.push(10000)
+
+x.disp()

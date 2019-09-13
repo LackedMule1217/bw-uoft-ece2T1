@@ -1,0 +1,210 @@
+m255
+K4
+z2
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+dD:/Barney/OneDrive - University of Toronto/2. Homework/10. Computer Organization (ECE243)/Labs/Lab 2 An Enhanced Processor/part5/modelsim
+vdec3to8
+Z0 !s110 1549171916
+!i10b 1
+!s100 6_:<CQNW^ZBPzilKW0UHH3
+IUo@k1mGc_=;8C1TjI@A5O3
+Z1 VDg1SIo80bB@j0V0VzS_@n1
+Z2 dD:/Barney/OneDrive - University of Toronto/2. Homework/10. Computer Organization (ECE243)/Labs/Lab 2 An Enhanced Processor/part7/modelsim
+Z3 w1549156682
+Z4 8../proc.v
+Z5 F../proc.v
+L0 347
+Z6 OV;L;10.5b;63
+r1
+!s85 0
+31
+Z7 !s108 1549171916.000000
+Z8 !s107 ../seg7_scroll.v|../proc.v|../main.v|../inst_mem.v|../flipflop.v|
+Z9 !s90 -reportprogress|300|../flipflop.v|../inst_mem.v|../main.v|../proc.v|../seg7_scroll.v|
+!i113 1
+Z10 tCvgOpt 0
+vflipflop
+R0
+!i10b 1
+!s100 4H2K_V>f3BSlSog@_SfWf0
+If;>LCi5HH2UkIZ<N0]YNc1
+R1
+R2
+w1467661640
+8../flipflop.v
+F../flipflop.v
+L0 1
+R6
+r1
+!s85 0
+31
+R7
+R8
+R9
+!i113 1
+R10
+vinst_mem
+R0
+!i10b 1
+!s100 K4RmZIQj0T6D3l>Szck240
+Ia4X7][PRd9=TRP4J;ZKQ22
+R1
+R2
+w1540570524
+8../inst_mem.v
+F../inst_mem.v
+L0 39
+R6
+r1
+!s85 0
+31
+R7
+R8
+R9
+!i113 1
+R10
+vmain
+R0
+!i10b 1
+!s100 W3eD^^j`KPVmF5EEe4S9U2
+IFMmScSKU=GE5cVV0m=>R<0
+R1
+R2
+w1549141293
+8../main.v
+F../main.v
+L0 30
+R6
+r1
+!s85 0
+31
+R7
+R8
+R9
+!i113 1
+R10
+vpc_count
+R0
+!i10b 1
+!s100 oN<bkIU30`ng1TB_ZTL2_1
+I3A?151Ned@1;lcHSH]3<21
+R1
+R2
+R3
+R4
+R5
+L0 332
+R6
+r1
+!s85 0
+31
+R7
+R8
+R9
+!i113 1
+R10
+vproc
+R0
+!i10b 1
+!s100 g:ne0JSYKK`UB@^_aYbU11
+IbcXk?l]Gc0e`RilYPN9QE3
+R1
+R2
+R3
+R4
+R5
+L0 20
+R6
+r1
+!s85 0
+31
+R7
+R8
+R9
+!i113 1
+R10
+vregn
+R0
+!i10b 1
+!s100 I[d1hd0kNjAKoBmE35:SN0
+IeBmP23b;lFg6[h6XVJ40J0
+R1
+R2
+R3
+R4
+R5
+L0 371
+R6
+r1
+!s85 0
+31
+R7
+R8
+R9
+!i113 1
+R10
+vregne
+Z11 !s110 1549171917
+!i10b 1
+!s100 D?kCn4=EaTDZ[2oQ`588_2
+I38T2CP[kXQEk0jmNEXR[42
+R1
+R2
+Z12 w1547926197
+Z13 8../seg7_scroll.v
+Z14 F../seg7_scroll.v
+L0 46
+R6
+r1
+!s85 0
+31
+R7
+R8
+R9
+!i113 1
+R10
+vseg7_scroll
+R0
+!i10b 1
+!s100 a<[Lkj`60S?m_[`z=:iXd2
+I:e`6Hj[`bYCeVlNNTJ9WP1
+R1
+R2
+R12
+R13
+R14
+L0 31
+R6
+r1
+!s85 0
+31
+R7
+R8
+R9
+!i113 1
+R10
+vtestbench
+R11
+!i10b 1
+!s100 WZ7X7LnoHXE0fBo`430g`3
+IITCdZjMa2eXeJ1jzbYMGY2
+R1
+R2
+w1547925282
+8testbench.v
+Ftestbench.v
+L0 3
+R6
+r1
+!s85 0
+31
+!s108 1549171917.000000
+!s107 testbench.v|
+!s90 -reportprogress|300|testbench.v|
+!i113 1
+R10

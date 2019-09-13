@@ -1,0 +1,90 @@
+C. Instructions (ll.c & ll.h)
+
+Summary:
+* int ll_find_by_value(llnode *pList,int val)
+  This searches the list (pointed at by pList) for a node with
+  value "val"; returning success/failure based on your search.
+
+* int ll_del_from_tail(llnode **ppList)
+  This finds the tail node, if it exists, and removes it from the list,
+  adjusting the list. Remember to "free" any dynamic structures that are
+  deleted.
+
+* int ll_del_from_head(llnode **ppList)
+  This finds the head node, if it exists, and removes it from the list,
+  adjusting the list. Remember to "free" any dynamic structures that are
+  deleted.
+
+* int ll_del_by_value(llnode **ppList,int val)
+  Search for the node with value "val" and if it exists, remove it.
+
+* int ll_insert_in_order(llnode **ppList,int val)
+  Insert a new node into the list, ensuring that it is inserted
+  in order, as per:
+  HEAD
+  ...
+  <This node has value <= the next>
+  <This node has value >= the prior>
+  ...
+  TAIL
+
+* int ll_concat(llnode **pSrcA,llnode **pSrcB)
+  This will merge SrcA and SrcB so that SrcA consists of SrcA and
+  SrcB concatenated: in Python-speak "SrcA = SrcA + SrcB"
+
+* int ll_sort(llnode **ppList)
+  This will run BUBBLE SORT (whose algorithm you saw in the last lab)
+  on the list pointed at by ppList.
+
+
+
+
+
+
+
+II. PYTHON PART OF THE LAB: Artificial Life... (conwaylib.py)
+
+Create a class called "conway", which will be used as follows: x=conway(10,12,'zeros')
+after which "x" will be a "conway" object that has an internal "store" variable
+(you can name "store" whatever you want; I'll never see it) that consists of
+10 lists, with each of the latter lists being a list of 12 integers,
+all set to 0.
+   x=conway(10,12,'random')
+which will function as above, but instead of setting the values of all cells to
+0, will set the values of all cells to unique, different, random values between
+0 and 1 (inclusive).
+This means that each cell will be randomly set to a value that is either zero or one, and that the setting of a value for a cell will be unique to that cell (that is, what cell i is set to has no effect on what cell j is set to).
+
+Create a function in this class called "getDisp" that will return a string
+that corresponds to the contents of the "conway" internal "store" variable.
+Do this string construction in a VERY SPECIFIC WAY.  If there is a 0, use a
+plain space " ". If there is a 1, use a "*".
+At the end of a row, concat a new line ( ... + "\n" + ...)
+Return this string as the function's return value.
+DO NOT DO ANYTHING ELSE.
+
+Create a function called "printDisp" that calls getDisp and prints the string
+getDisp returns.
+The objective of getDisp and printDisp is to generate a 2D picture with nothing or "*".
+So if the grid had all 1's, and if it was called with 10,12 as the initial argument,
+then you'd see a 10x12 matrix of *.
+Be sure you follow this: no creativity here ... do not do anything other than the 
+above. It will be vital for the rest of the lab.
+
+Create a function called "setPos(row,col,val)" that will set the row,col element to
+have value "val". Error check to ensure that val is only 0 or 1.
+
+Create a function in this class called: "getNeighbours(row,col)"
+which will return a list of numbers that returns the values of the 8 neighbours
+of the row,col element. So the upper left, top, upper right, left, ...
+values of the grid. What do you do on a boundary? Roll-over.
+
+That is: if you're on the extreme right end of the grid, then the right column
+will be the leftmost column. If you're on the extreme left end: the left column
+will be the rightmost column. If you're at the top, then the upper row will be the
+bottom row, and if you're at the bottom, then the lower row will be the top row.
+That is, this artificial organism is going to live on a sphere...
+
+All functions above, except getNeighbours and getDisp, will return a True for
+success or a False for failure.
+

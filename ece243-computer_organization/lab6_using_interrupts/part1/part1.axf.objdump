@@ -1,0 +1,261 @@
+
+D:/Lab 6/part1/part1.axf:     file format elf32-littlearm
+
+
+Disassembly of section .vectors:
+
+00000000 <__cs3_interrupt_vector>:
+   0:	ea00000e 	b	40 <__cs3_region_init_ram>
+   4:	ea000032 	b	d4 <SERVICE_UND>
+   8:	ea000032 	b	d8 <SERVICE_SVC>
+   c:	ea000033 	b	e0 <SERVICE_ABT_INST>
+  10:	ea000031 	b	dc <SERVICE_ABT_DATA>
+  14:	00000000 	.word	0x00000000
+  18:	ea000024 	b	b0 <SERVICE_IRQ>
+  1c:	ea000030 	b	e4 <SERVICE_FIQ>
+
+Disassembly of section .text:
+
+00000040 <__cs3_region_start_ram>:
+			.text
+			.global _start
+			
+_start:
+// 1) Set up stack pointers for IRQ and SVC processor modes
+			MOV		R1, #0b11010010			// IRQ mode: interrupts disabled
+  40:	e3a010d2 	mov	r1, #210	; 0xd2
+			MSR		CPSR, R1				// write to CPSR
+  44:	e129f001 	msr	CPSR_fc, r1
+			LDR		SP, =0xFFFFFFFC			// set IRQ stack pointer
+  48:	e3e0d003 	mvn	sp, #3
+			MOV		R1, #0b11010011			// SVC mode: interrupts disabled
+  4c:	e3a010d3 	mov	r1, #211	; 0xd3
+			MSR		CPSR, R1				// write to CPSR
+  50:	e129f001 	msr	CPSR_fc, r1
+			LDR		SP, =0x3FFFFFFC			// set SVC stack pointer
+  54:	e3e0d10f 	mvn	sp, #-1073741821	; 0xc0000003
+			
+			BL		CONFIG_GIC				// configure the ARM generic interrupt controller
+  58:	eb000005 	bl	74 <CONFIG_GIC>
+			
+// 2) Configure the KEY pushbuttons port to generate interrupts
+			LDR		R0, =0xFF200050			// pushbutton key base address
+  5c:	e59f0108 	ldr	r0, [pc, #264]	; 16c <key_prev_state+0x4>
+			MOV		R1, #0xF				// enable itnerupts for all 4 KEYs
+  60:	e3a0100f 	mov	r1, #15
+			STR		R1, [R0, #0x8]			// interrupt mask register (base + 8)
+  64:	e5801008 	str	r1, [r0, #8]
+
+// 3) Enable IRQ interrupts in the ARM processor
+			MOV		R0, #0b01010011			// enable IRQ, MODE = SVC
+  68:	e3a00053 	mov	r0, #83	; 0x53
+			MSR		CPSR, R0
+  6c:	e129f000 	msr	CPSR_fc, r0
+
+00000070 <IDLE>:
+
+IDLE:		B		IDLE					// main program simply idles
+  70:	eafffffe 	b	70 <IDLE>
+
+00000074 <CONFIG_GIC>:
+
+
+
+/* A. Configure GIC */
+CONFIG_GIC:	LDR		R0, =0xFFFED848			// ICDIPTRn: processor targets register
+  74:	e59f00f4 	ldr	r0, [pc, #244]	; 170 <key_prev_state+0x8>
+			LDR		R1, =0x00000100			// set target to cpu0
+  78:	e3a01c01 	mov	r1, #256	; 0x100
+			STR		R1, [R0]
+  7c:	e5801000 	str	r1, [r0]
+			LDR		R0, =0xFFFED108			// ICDISERn: set enable register
+  80:	e59f00ec 	ldr	r0, [pc, #236]	; 174 <key_prev_state+0xc>
+			LDR		R1, =0x00000200			// set interrupt enable
+  84:	e3a01c02 	mov	r1, #512	; 0x200
+			STR		R1, [R0]
+  88:	e5801000 	str	r1, [r0]
+			MOV		R1, #0x1				// Enable ICDDCR to allow interrupts to be forwarded to CPU interface
+  8c:	e3a01001 	mov	r1, #1
+			LDR		R0, =0xFFFED000
+  90:	e59f00e0 	ldr	r0, [pc, #224]	; 178 <key_prev_state+0x10>
+			STR		R1, [R0]
+  94:	e5801000 	str	r1, [r0]
+			LDR		R0, =0xFFFEC100			// enable interrupts of all priorities in CPU interface
+  98:	e59f00dc 	ldr	r0, [pc, #220]	; 17c <key_prev_state+0x14>
+			LDR		R1, =0xFF
+  9c:	e3a010ff 	mov	r1, #255	; 0xff
+			STR		R1, [R0, #4]
+  a0:	e5801004 	str	r1, [r0, #4]
+			MOV		R1, #0x1				// enable ICCICR to allow interrupts to be forwarded to CPU
+  a4:	e3a01001 	mov	r1, #1
+			STR		R1, [R0]
+  a8:	e5801000 	str	r1, [r0]
+			BX		LR
+  ac:	e12fff1e 	bx	lr
+
+000000b0 <SERVICE_IRQ>:
+
+
+/* B. Define the exception service routines */
+//		B.1 IRQ
+SERVICE_IRQ:
+			PUSH	{R0-R12, LR}
+  b0:	e92d5fff 	push	{r0, r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12, lr}
+			LDR		R4, =0XFFFEC100			// GIC CPU interface base address
+  b4:	e59f40c0 	ldr	r4, [pc, #192]	; 17c <key_prev_state+0x14>
+			LDR		R5, [R4, #0x0C]			// read the ICCIAR in the CPU interface
+  b8:	e594500c 	ldr	r5, [r4, #12]
+
+000000bc <FPGA_IRQ1_HANDLER>:
+				
+FPGA_IRQ1_HANDLER:
+			CMP		R5, #73					// check the interrupt ID
+  bc:	e3550049 	cmp	r5, #73	; 0x49
+
+000000c0 <UNEXPECTED>:
+			
+UNEXPECTED:	BNE		UNEXPECTED				// if not recognized, stop here
+  c0:	1afffffe 	bne	c0 <UNEXPECTED>
+			BL		KEY_ISR
+  c4:	eb000007 	bl	e8 <KEY_ISR>
+
+000000c8 <EXIT_IRQ>:
+			
+EXIT_IRQ:	STR		R5, [R4, #0x10]			// write to the End of Interrupt Register (ICCEOIR)
+  c8:	e5845010 	str	r5, [r4, #16]
+			POP		{R0-R12, LR}
+  cc:	e8bd5fff 	pop	{r0, r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12, lr}
+			SUBS	PC, LR, #4				// return from exception
+  d0:	e25ef004 	subs	pc, lr, #4
+
+000000d4 <SERVICE_UND>:
+
+//		B.2 UNDEFINED
+SERVICE_UND:
+			B		SERVICE_UND
+  d4:	eafffffe 	b	d4 <SERVICE_UND>
+
+000000d8 <SERVICE_SVC>:
+		
+//		B.3 SUPERVISOR		
+SERVICE_SVC:
+			B		SERVICE_SVC
+  d8:	eafffffe 	b	d8 <SERVICE_SVC>
+
+000000dc <SERVICE_ABT_DATA>:
+		
+//		B.4 ABT DATA		
+SERVICE_ABT_DATA:
+			B		SERVICE_ABT_DATA
+  dc:	eafffffe 	b	dc <SERVICE_ABT_DATA>
+
+000000e0 <SERVICE_ABT_INST>:
+	
+//		B.5 ABT INST	
+SERVICE_ABT_INST:
+			B		SERVICE_ABT_INST
+  e0:	eafffffe 	b	e0 <SERVICE_ABT_INST>
+
+000000e4 <SERVICE_FIQ>:
+	
+//		B.6 FIQ	
+SERVICE_FIQ:
+			B		SERVICE_FIQ
+  e4:	eafffffe 	b	e4 <SERVICE_FIQ>
+
+000000e8 <KEY_ISR>:
+			- R4: previous KEY state
+			- R5: to be stored KEY state
+			- R6: HEX data
+			- R7: miscellaneous
+*/
+KEY_ISR:	PUSH	{R0-R12}
+  e8:	e92d1fff 	push	{r0, r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12}
+			LDR		R0, =0xFF200050			// base address of pushbutton KEYs
+  ec:	e59f0078 	ldr	r0, [pc, #120]	; 16c <key_prev_state+0x4>
+			LDR		R1, =0xFF200020			// base address of HEX display
+  f0:	e59f1088 	ldr	r1, [pc, #136]	; 180 <key_prev_state+0x18>
+			LDR		R2, =key_prev_state		// key_prev_state tracks previous state of keys
+  f4:	e59f2088 	ldr	r2, [pc, #136]	; 184 <key_prev_state+0x1c>
+			LDR		R3, [R0, #0xC]			// read edge capture register
+  f8:	e590300c 	ldr	r3, [r0, #12]
+			STR		R3, [R0, #0xC]			// clear the interrupt
+  fc:	e580300c 	str	r3, [r0, #12]
+			LDR		R4, [R2]				// read old value
+ 100:	e5924000 	ldr	r4, [r2]
+			EOR		R5, R3, R4				// toggle the bits
+ 104:	e0235004 	eor	r5, r3, r4
+			STR		R5, [R2]				// write to key_prev_state for tracking
+ 108:	e5825000 	str	r5, [r2]
+			MOV		R6, #0					// blank the HEX displays by default
+ 10c:	e3a06000 	mov	r6, #0
+
+00000110 <check_key0>:
+			
+check_key0:	MOV		R7, #0b0001
+ 110:	e3a07001 	mov	r7, #1
+			ANDS	R7, R7, R5				// check for KEY0
+ 114:	e0177005 	ands	r7, r7, r5
+			BEQ		check_key1				// if not KEY 0 then check key 1
+ 118:	0a000000 	beq	120 <check_key1>
+			MOV		R6, #0b00111111			// display "0" on HEX0
+ 11c:	e3a0603f 	mov	r6, #63	; 0x3f
+
+00000120 <check_key1>:
+			
+check_key1: MOV		R7, #0b0010
+ 120:	e3a07002 	mov	r7, #2
+			ANDS	R7, R7, R5				// check for KEY1
+ 124:	e0177005 	ands	r7, r7, r5
+			BEQ		check_key2				// if not KEY1, then check KEY2
+ 128:	0a000001 	beq	134 <check_key2>
+			MOV		R7, #0b00000110			// display "1" on HEX1
+ 12c:	e3a07006 	mov	r7, #6
+			ORR		R6, R6, R7, LSL #8		// shift such to display on HEX1
+ 130:	e1866407 	orr	r6, r6, r7, lsl #8
+
+00000134 <check_key2>:
+			
+check_key2: MOV		R7, #0b0100				// check if KEY2 is pushed
+ 134:	e3a07004 	mov	r7, #4
+			ANDS	R7, R7, R5				// check for KEY2
+ 138:	e0177005 	ands	r7, r7, r5
+			BEQ		check_key3				// if not KEY2 then check KEY3
+ 13c:	0a000001 	beq	148 <check_key3>
+			MOV		R7, #0b01011011			// display "2" on HEX2
+ 140:	e3a0705b 	mov	r7, #91	; 0x5b
+			ORR		R6, R6, R7, LSL #16		// shift such to display on HEX2
+ 144:	e1866807 	orr	r6, r6, r7, lsl #16
+
+00000148 <check_key3>:
+			
+check_key3:	MOV		R7, #0b1000
+ 148:	e3a07008 	mov	r7, #8
+			ANDS	R7, R7, R5				// check for KEY3
+ 14c:	e0177005 	ands	r7, r7, r5
+			BEQ		end_key_isr				// if not KEY3 then return
+ 150:	0a000001 	beq	15c <end_key_isr>
+			MOV		R7, #0b01001111			// display "3" on HEX3
+ 154:	e3a0704f 	mov	r7, #79	; 0x4f
+			ORR		R6, R6, R7, LSL #24		// shift such to display on HEX3
+ 158:	e1866c07 	orr	r6, r6, r7, lsl #24
+
+0000015c <end_key_isr>:
+			
+end_key_isr:
+			STR		R6, [R1]
+ 15c:	e5816000 	str	r6, [r1]
+			POP		{R0-R12}
+ 160:	e8bd1fff 	pop	{r0, r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12}
+			BX		LR
+ 164:	e12fff1e 	bx	lr
+
+00000168 <key_prev_state>:
+ 168:	00000000 	.word	0x00000000
+ 16c:	ff200050 	.word	0xff200050
+ 170:	fffed848 	.word	0xfffed848
+ 174:	fffed108 	.word	0xfffed108
+ 178:	fffed000 	.word	0xfffed000
+ 17c:	fffec100 	.word	0xfffec100
+ 180:	ff200020 	.word	0xff200020
+ 184:	00000168 	.word	0x00000168

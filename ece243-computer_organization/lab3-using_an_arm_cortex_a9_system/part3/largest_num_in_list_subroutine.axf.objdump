@@ -1,0 +1,77 @@
+
+D:/ECE243/Lab 3; Using an ARM Cortex-A9 System/part3/largest_num_in_list_subroutine.axf:     file format elf32-littlearm
+
+
+Disassembly of section .text:
+
+00000000 <__cs3_interrupt_vector>:
+
+			.text						// executable code follows
+			.global _start
+
+_start:
+			MOV		R4, #RESULT			// R4 points to result location
+   0:	e3a04048 	mov	r4, #72	; 0x48
+			LDR		R0, [R4, #4]		// R0 holds the number of elements in the list
+   4:	e5940004 	ldr	r0, [r4, #4]
+			BEQ		END					// end if the initial list has size of 0
+   8:	0a000002 	beq	18 <END>
+			MOV		R1, #NUMBERS		// R1 points to the start of the list
+   c:	e3a01050 	mov	r1, #80	; 0x50
+			BL		LARGE
+  10:	eb000001 	bl	1c <LARGE>
+			STR		R0, [R4]			// R0 holds the subroutine return value
+  14:	e5840000 	str	r0, [r4]
+
+00000018 <END>:
+			
+END:		B		END
+  18:	eafffffe 	b	18 <END>
+
+0000001c <LARGE>:
+ * Variables: R2 - current largest number
+ *			  R3 - current number
+ * Returns: R0 returns the largest item in the list
+ */
+LARGE:		
+			LDR		R2, [R1]			// R2 holds the largest number so far
+  1c:	e5912000 	ldr	r2, [r1]
+
+00000020 <LARGE1>:
+LARGE1:		SUBS	R0, #1				// decrement the loop counter
+  20:	e2500001 	subs	r0, r0, #1
+			BEQ		LARGE_R				// if result is equal to 0, calls method to return from subroutine
+  24:	0a000005 	beq	40 <LARGE_R>
+			ADD		R1, #4				// points to the next element in the list
+  28:	e2811004 	add	r1, r1, #4
+			LDR 	R3, [R1] 			// get the next number
+  2c:	e5913000 	ldr	r3, [r1]
+			CMP		R2, R3				// compare the current largest number with the new number
+  30:	e1520003 	cmp	r2, r3
+			BGE		LARGE1
+  34:	aafffff9 	bge	20 <LARGE1>
+			MOV		R2, R3				// update the largest number
+  38:	e1a02003 	mov	r2, r3
+			B		LARGE1
+  3c:	eafffff7 	b	20 <LARGE1>
+
+00000040 <LARGE_R>:
+LARGE_R:	MOV		R0, R2				// moves the current largest number from R2 to R0
+  40:	e1a00002 	mov	r0, r2
+			MOV		PC, LR				// return to caller
+  44:	e1a0f00e 	mov	pc, lr
+
+00000048 <RESULT>:
+  48:	00000000 	.word	0x00000000
+
+0000004c <N>:
+  4c:	00000007 	.word	0x00000007
+
+00000050 <NUMBERS>:
+  50:	00000004 	.word	0x00000004
+  54:	00000005 	.word	0x00000005
+  58:	00000003 	.word	0x00000003
+  5c:	00000006 	.word	0x00000006
+  60:	00000001 	.word	0x00000001
+  64:	00000008 	.word	0x00000008
+  68:	00000002 	.word	0x00000002

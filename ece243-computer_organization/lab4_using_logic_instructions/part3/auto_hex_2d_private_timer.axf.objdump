@@ -1,0 +1,156 @@
+
+D:/Lab 5; Using Input Output Devices/part3/auto_hex_2d_private_timer.axf:     file format elf32-littlearm
+
+
+Disassembly of section .text:
+
+00000000 <__cs3_interrupt_vector>:
+			.equ	PTIM_ADDR, 0xFFFEC600	// stores address of private timer
+			.equ	COUNT, 10000000			// private timer to 10M
+			.equ	SCALE, 0x5				// private timer scale
+			
+_start:
+			LDR		R0, =0x3F3F			// set initial HEX display to 00
+   0:	e59f00d8 	ldr	r0, [pc, #216]	; e0 <HEX+0xc>
+			LDR		R4, =HEX			// set pointer to beginning of HEX array
+   4:	e59f40d8 	ldr	r4, [pc, #216]	; e4 <HEX+0x10>
+			LDR		R5, =HEX_ADDR		// stores hex address
+   8:	e59f50d8 	ldr	r5, [pc, #216]	; e8 <HEX+0x14>
+			LDR		R6, =KEY_ADDR		// stores key address
+   c:	e59f60d8 	ldr	r6, [pc, #216]	; ec <HEX+0x18>
+			MOV		R7,	#0				// stores counter value
+  10:	e3a07000 	mov	r7, #0
+			LDR		R8, =PTIM_ADDR		// stores private timer address
+  14:	e59f80d4 	ldr	r8, [pc, #212]	; f0 <HEX+0x1c>
+			LDR		R9, =COUNT			// stores count
+  18:	e59f90d4 	ldr	r9, [pc, #212]	; f4 <HEX+0x20>
+			STR		R9, [R8]			// stores count in load value of private timer
+  1c:	e5889000 	str	r9, [r8]
+			MOV		R9, #0x5				// store prescaler value
+  20:	e3a09005 	mov	r9, #5
+			LSL		R9, R9, #8
+  24:	e1a09409 	lsl	r9, r9, #8
+			ADD		R9, #0b011			// store IAE for control
+  28:	e2899003 	add	r9, r9, #3
+			STR		R9, [R8, #0x8]		// store control in private timer and enable it
+  2c:	e5889008 	str	r9, [r8, #8]
+
+00000030 <main>:
+			
+main:		STR		R0, [R5]			// store value to HEX display
+  30:	e5850000 	str	r0, [r5]
+
+00000034 <check_tim>:
+check_tim:	LDR		R9, [R8, #0xC]		// store timer timeout state
+  34:	e598900c 	ldr	r9, [r8, #12]
+			CMP		R9, #1				// check if timer has finished the 0.25 second delay
+  38:	e3590001 	cmp	r9, #1
+			BNE		check_tim			// if timer has not finished, poll again
+  3c:	1afffffc 	bne	34 <check_tim>
+			STR		R9, [R8, #0xC]		// reset timer timeout flag
+  40:	e588900c 	str	r9, [r8, #12]
+			LDR		R9, [R6, #0xC]		// if keys are pressed, pause
+  44:	e596900c 	ldr	r9, [r6, #12]
+			CMP		R9, #0
+  48:	e3590000 	cmp	r9, #0
+			BEQ		incre
+  4c:	0a000004 	beq	64 <incre>
+
+00000050 <check_key>:
+check_key:	LDR		R10, [R6]
+  50:	e596a000 	ldr	r10, [r6]
+			CMP		R10, #0
+  54:	e35a0000 	cmp	r10, #0
+			BNE		check_key
+  58:	1afffffc 	bne	50 <check_key>
+			MOV		R10, #0b1111
+  5c:	e3a0a00f 	mov	r10, #15
+			STR		R10, [R6, #0xC]		// reset key edgecapture register
+  60:	e586a00c 	str	r10, [r6, #12]
+
+00000064 <incre>:
+incre:		ADD		R7, #1				// increment counter value
+  64:	e2877001 	add	r7, r7, #1
+			CMP		R7, #100			// if cnt==100, reset counter to 0 and return to main
+  68:	e3570064 	cmp	r7, #100	; 0x64
+			MOVEQ	R7, #0
+  6c:	03a07000 	moveq	r7, #0
+			MOV		R2, R7				// subroutine prep: moves count value to R2
+  70:	e1a02007 	mov	r2, r7
+			BL		HEX_DIVIDE			// calls hex divide subroutine
+  74:	eb000003 	bl	88 <HEX_DIVIDE>
+			MOV		R3, R1				// subroutine prep: moves quotient value to R3
+  78:	e1a03001 	mov	r3, r1
+			MOV		R2, R0				// subroutine prep: moves remainder value to R2
+  7c:	e1a02000 	mov	r2, r0
+			BL		NUM_TO_HEX			// calls num to hex subroutine
+  80:	eb00000b 	bl	b4 <NUM_TO_HEX>
+			B		main				// loop to main
+  84:	eaffffe9 	b	30 <main>
+
+00000088 <HEX_DIVIDE>:
+ * Input: 		R2 - input data
+ * Usage:		R4 - temporary quotient
+ * Output: 		R0 - remainder
+ *				R1 - quotient
+ */
+HEX_DIVIDE: PUSH	{R4-R12}
+  88:	e92d1ff0 	push	{r4, r5, r6, r7, r8, r9, r10, r11, r12}
+			MOV 	R4, #0
+  8c:	e3a04000 	mov	r4, #0
+
+00000090 <CONT>:
+CONT: 		CMP 	R2, #10
+  90:	e352000a 	cmp	r2, #10
+			BLT 	DIV_END
+  94:	ba000002 	blt	a4 <DIV_END>
+			SUB 	R2, #10
+  98:	e242200a 	sub	r2, r2, #10
+			ADD 	R4, #1
+  9c:	e2844001 	add	r4, r4, #1
+			B 		CONT
+  a0:	eafffffa 	b	90 <CONT>
+
+000000a4 <DIV_END>:
+DIV_END: 	MOV 	R1, R4 				// quotient in R1
+  a4:	e1a01004 	mov	r1, r4
+			MOV		R0, R2				// remainder in R0
+  a8:	e1a00002 	mov	r0, r2
+			POP		{R4-R12}
+  ac:	e8bd1ff0 	pop	{r4, r5, r6, r7, r8, r9, r10, r11, r12}
+			BX		LR
+  b0:	e12fff1e 	bx	lr
+
+000000b4 <NUM_TO_HEX>:
+				R3 - quotient
+ * Usage:		R4 - HEX memory value
+				R5 - temporary remainder hex code
+ * Output: 		R0 - hex code
+ */
+NUM_TO_HEX: PUSH	{R4-R12}
+  b4:	e92d1ff0 	push	{r4, r5, r6, r7, r8, r9, r10, r11, r12}
+			LDR		R4, =HEX
+  b8:	e59f4024 	ldr	r4, [pc, #36]	; e4 <HEX+0x10>
+			LDRB	R0, [R4, R3]
+  bc:	e7d40003 	ldrb	r0, [r4, r3]
+			LSL		R0, R0, #8
+  c0:	e1a00400 	lsl	r0, r0, #8
+			LDRB	R5, [R4, R2]
+  c4:	e7d45002 	ldrb	r5, [r4, r2]
+			ADD		R0, R5
+  c8:	e0800005 	add	r0, r0, r5
+			POP		{R4-R12}
+  cc:	e8bd1ff0 	pop	{r4, r5, r6, r7, r8, r9, r10, r11, r12}
+			BX		LR
+  d0:	e12fff1e 	bx	lr
+
+000000d4 <HEX>:
+  d4:	4f5b063f 	.word	0x4f5b063f
+  d8:	077d6d66 	.word	0x077d6d66
+  dc:	0000677f 	.word	0x0000677f
+  e0:	00003f3f 	.word	0x00003f3f
+  e4:	000000d4 	.word	0x000000d4
+  e8:	ff200020 	.word	0xff200020
+  ec:	ff200050 	.word	0xff200050
+  f0:	fffec600 	.word	0xfffec600
+  f4:	00989680 	.word	0x00989680

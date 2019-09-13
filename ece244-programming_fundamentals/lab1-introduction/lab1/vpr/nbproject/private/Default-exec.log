@@ -1,0 +1,113 @@
+called: C:\MinGW\bin\gcc.exe
+	C:\Users\barne\Documents\Barney Wei\OneDrive - University of Toronto\2. Homework\4. Programming Fundamentals (ECE244)\Lab 1 Material\lab1\vpr
+	C:\MinGW\bin\gcc.exe
+	-c
+	-g
+	-Wall
+	main.c
+
+called: C:\MinGW\bin\gcc.exe
+	C:\Users\barne\Documents\Barney Wei\OneDrive - University of Toronto\2. Homework\4. Programming Fundamentals (ECE244)\Lab 1 Material\lab1\vpr
+	C:\MinGW\bin\gcc.exe
+	-c
+	-g
+	-Wall
+	util.c
+
+called: C:\MinGW\bin\gcc.exe
+	C:\Users\barne\Documents\Barney Wei\OneDrive - University of Toronto\2. Homework\4. Programming Fundamentals (ECE244)\Lab 1 Material\lab1\vpr
+	C:\MinGW\bin\gcc.exe
+	-c
+	-g
+	-Wall
+	read_netlist.c
+
+called: C:\MinGW\bin\gcc.exe
+	C:\Users\barne\Documents\Barney Wei\OneDrive - University of Toronto\2. Homework\4. Programming Fundamentals (ECE244)\Lab 1 Material\lab1\vpr
+	C:\MinGW\bin\gcc.exe
+	-c
+	-g
+	-Wall
+	print_netlist.c
+
+called: C:\MinGW\bin\gcc.exe
+	C:\Users\barne\Documents\Barney Wei\OneDrive - University of Toronto\2. Homework\4. Programming Fundamentals (ECE244)\Lab 1 Material\lab1\vpr
+	C:\MinGW\bin\gcc.exe
+	-c
+	-g
+	-Wall
+	check_netlist.c
+
+called: C:\MinGW\bin\gcc.exe
+	C:\Users\barne\Documents\Barney Wei\OneDrive - University of Toronto\2. Homework\4. Programming Fundamentals (ECE244)\Lab 1 Material\lab1\vpr
+	C:\MinGW\bin\gcc.exe
+	-c
+	-g
+	-Wall
+	read_arch.c
+
+called: C:\MinGW\bin\gcc.exe
+	C:\Users\barne\Documents\Barney Wei\OneDrive - University of Toronto\2. Homework\4. Programming Fundamentals (ECE244)\Lab 1 Material\lab1\vpr
+	C:\MinGW\bin\gcc.exe
+	-c
+	-g
+	-Wall
+	place_and_route.c
+
+called: C:\MinGW\bin\gcc.exe
+	C:\Users\barne\Documents\Barney Wei\OneDrive - University of Toronto\2. Homework\4. Programming Fundamentals (ECE244)\Lab 1 Material\lab1\vpr
+	C:\MinGW\bin\gcc.exe
+	-c
+	-g
+	-Wall
+	place.c
+
+called: C:\MinGW\bin\gcc.exe
+	C:\Users\barne\Documents\Barney Wei\OneDrive - University of Toronto\2. Homework\4. Programming Fundamentals (ECE244)\Lab 1 Material\lab1\vpr
+	C:\MinGW\bin\gcc.exe
+	-c
+	-g
+	-Wall
+	route_common.c
+
+called: C:\MinGW\bin\gcc.exe
+	C:\Users\barne\Documents\Barney Wei\OneDrive - University of Toronto\2. Homework\4. Programming Fundamentals (ECE244)\Lab 1 Material\lab1\vpr
+	C:\MinGW\bin\gcc.exe
+	-c
+	-g
+	-Wall
+	route_timing.c
+
+called: C:\MinGW\bin\gcc.exe
+	C:\Users\barne\Documents\Barney Wei\OneDrive - University of Toronto\2. Homework\4. Programming Fundamentals (ECE244)\Lab 1 Material\lab1\vpr
+	C:\MinGW\bin\gcc.exe
+	-c
+	-g
+	-Wall
+	route_tree_timing.c
+
+called: C:\MinGW\bin\gcc.exe
+	C:\Users\barne\Documents\Barney Wei\OneDrive - University of Toronto\2. Homework\4. Programming Fundamentals (ECE244)\Lab 1 Material\lab1\vpr
+	C:\MinGW\bin\gcc.exe
+	-c
+	-g
+	-Wall
+	route_breadth_first.c
+
+called: C:\MinGW\bin\gcc.exe
+	C:\Users\barne\Documents\Barney Wei\OneDrive - University of Toronto\2. Homework\4. Programming Fundamentals (ECE244)\Lab 1 Material\lab1\vpr
+	C:\MinGW\bin\gcc.exe
+	-c
+	-g
+	-Wall
+	draw.c
+
+called: C:\MinGW\bin\gcc.exe
+	C:\Users\barne\Documents\Barney Wei\OneDrive - University of Toronto\2. Homework\4. Programming Fundamentals (ECE244)\Lab 1 Material\lab1\vpr
+	C:\MinGW\bin\gcc.exe
+	-c
+	-g
+	-Wall
+	-IC:/MinGW/MSYS/1.0/openwin/include
+	graphics.c
+

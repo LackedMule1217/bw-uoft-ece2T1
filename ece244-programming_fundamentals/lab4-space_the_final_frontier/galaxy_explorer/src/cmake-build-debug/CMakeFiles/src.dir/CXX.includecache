@@ -1,0 +1,30 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+.././galaxy-explorer/Asteroid.hpp
+SFML/Graphics/Rect.hpp
+-
+SFML/System/Vector2.hpp
+-
+
+.././galaxy-explorer/AsteroidList.hpp
+galaxy-explorer/Asteroid.hpp
+-
+
+.././galaxy-explorer/AsteroidsObserver.hpp
+galaxy-explorer/AsteroidList.hpp
+-
+
+D:/Barney/OneDrive - University of Toronto/2. Homework/4. Programming Fundamentals (ECE244)/Lab 4 Material/galaxy-explorer/src/galaxy-explorer/AsteroidList.cpp
+galaxy-explorer/AsteroidList.hpp
+-
+
+D:/Barney/OneDrive - University of Toronto/2. Homework/4. Programming Fundamentals (ECE244)/Lab 4 Material/galaxy-explorer/src/galaxy-explorer/AsteroidsObserver.cpp
+galaxy-explorer/AsteroidsObserver.hpp
+-
+

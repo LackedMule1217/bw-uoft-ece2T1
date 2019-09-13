@@ -1,0 +1,67 @@
+#include <stdio.h>
+#include "ll.h"
+
+int main(void) {
+    llnode *root = NULL;
+    llnode *root1 = NULL;
+    llnode *root2 = NULL;
+    int r=0;
+    int i=0;
+
+    printf("List A\n");
+    r=ll_add_to_tail(&root,100);
+    r=ll_add_to_tail(&root,200);
+    r=ll_add_to_tail(&root,300);
+    for(i=0;i<10;i=i+1){
+        r=ll_add_to_tail(&root,i*100);
+    }
+    ll_del_from_head(&root);
+    r=ll_del_from_tail(&root);
+    r=ll_del_from_tail(&root);
+    r=ll_print(root);
+    printf("\n Sorted: \n");
+    r=ll_sort(&root);
+    r=ll_print(root);
+    r=ll_free(root);
+
+    printf("List B\n");
+    root=NULL;
+    r=ll_add_to_tail(&root,100);
+    r=ll_add_to_tail(&root,200);
+    r=ll_add_to_tail(&root,300);
+    for(i=0;i<10;i=i+1){
+        r=ll_add_to_head(&root,i*100);
+    }
+    r=ll_insert_in_order(&root,3410);
+    r=ll_insert_in_order(&root,39);
+    r=ll_insert_in_order(&root,-10);
+    r=ll_insert_in_order(&root,6702);
+    r=ll_find_by_value(root,39);
+    r=ll_del_by_value(&root,39);
+    r=ll_find_by_value(root,39);
+    r=ll_print(root);
+    printf("\n Sorted: \n");
+    r=ll_sort(&root);
+    r=ll_print(root);
+    r=ll_free(root);
+
+    printf("List C\n");
+    root1=NULL;
+    r=ll_add_to_tail(&root1,100);
+    r=ll_add_to_tail(&root2,1);
+    r=ll_add_to_tail(&root2,2);
+    r=ll_add_to_tail(&root1,200);
+    r=ll_add_to_tail(&root1,300);
+    r=ll_find_by_value(root1,100);
+    r=ll_del_by_value(&root1,100);
+    r=ll_find_by_value(root1,100);
+    r=ll_concat(&root1,&root2);
+    r=ll_print(root1);
+    printf("\n Sorted: \n");
+    r=ll_sort(&root1);
+    r=ll_print(root1);
+    r=ll_free(root1);
+    r=ll_free(root2);
+
+    return 0;
+}

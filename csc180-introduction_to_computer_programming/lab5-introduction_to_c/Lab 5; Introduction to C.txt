@@ -1,0 +1,117 @@
+Exercise 1 (helloworld.c):
+
+#include <stdio.h> // this is needed to provide access to the standard IO
+                   // (or input/output) library for printf, or scanf
+
+int squareInt(int x);
+
+int main(void) {
+   int i;
+   for(i=0;i<10;i++){
+      int sq = squareInt(i);
+      printf("Hello world;  %d squared is %d\n",i,sq);
+      if (sq % 2 != 0) {
+          printf("The square is odd!\n");
+      }
+   }
+   return 0;
+}
+
+int squareInt(int x) {
+   return x*x;
+}
+
+
+
+
+
+
+Exercise 2 (helloworldf.c):
+
+#include <stdio.h>
+#include <math.h>
+
+float bsqrt(float x, float accuracy);
+
+int main(void) {
+    int i;
+    for(i=1;i<=10;i++){
+        float sqrt;
+        sqrt=bsqrt((float)i,0.001);
+        printf("The sqrt of %d is %f\n",i,sqrt);
+    }
+}
+
+float bsqrt(float x, float accuracy) {
+    float guess = x/2;
+    float check;
+    while(1){
+        check = x/guess;
+        guess = (guess + check)/2;
+
+        if((float)fabs(guess*guess-x) < accuracy) {
+            return guess;
+        }
+
+    }
+}
+
+
+
+
+
+
+B.1. (counterlib.py) Define a class, called "counter", that has:
+* an init method as follows:
+   def __init__(self,initCnt):
+      self.cnt = initCnt
+* a "evolve" method that takes one input arg ("x") and which, when
+  called, will set the "cnt" variable of the class to be equal to
+  the old value of "cnt" plus the value of "x"
+  (x is an int)
+* a "getState" method that takes no args and simply returns the value
+   of the "cnt" variable
+
+class counter:
+    def __init__(self, initCnt):
+        self.cnt = initCnt
+    def evolve(self, x):
+        self.cnt += x
+    def getState(self):
+        return self.cnt
+
+
+
+
+
+
+B.2. (counterTester.py) Tester for counter
+Write a tester for counter, called "counterTester.py".
+
+class counter:
+    def __init__(self, initCnt):
+        self.cnt = initCnt
+    def evolve(self, x):
+        self.cnt += x
+    def getState(self):
+        return self.cnt
+
+x=counter(1000)
+y=counter(50)
+z=counter(3.141592653589793238462643383279502884197169399375105820974944592307816406286)
+
+for i in range(10):
+    x.evolve(1234)
+print(x.getState())
+
+for i in range(21):
+    y.evolve(-1233)
+print(y.getState())
+
+for i in range(42):
+    z.evolve(2.7182818284590452353602874713526624977572470)
+print(z.getState())
+
+print(x.getState())
+print(y.getState())
+print(z.getState())

@@ -1,0 +1,20 @@
+// File Name: proc
+// Author: Shi Jie (Barney) Wei
+// Date: 01/15/19
+
+/* 
+INPUT
+ 	A. KEY
+		A.1  KEY[0]			Resetn
+		A.2  KEY[1]			Clock
+	B. SW
+		B.1 	SW[8:0]		DIN
+		B.2	SW[9]			Run
+OUTPUT
+	A. LEDR
+		A.1	LEDR[8:0]	Bus
+		A.2	LEDR[9]		Done
+*/
+		
+`timescale 1ns / 1ns // `timescale time_unit/time_precision
+

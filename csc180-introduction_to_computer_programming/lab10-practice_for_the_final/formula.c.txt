@@ -1,0 +1,217 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+struct bondNode;
+struct atom;
+
+struct bondNode {
+    int strength;
+    struct atom *pAtom;
+    struct bondNode *pNext;
+};
+
+struct atom {
+    int atomicNumber;
+    struct bondNode *bondList;
+};
+
+typedef struct bondNode bondNode;
+typedef struct atom atom;
+
+int addBond(atom *pAtom, int strength, atom *pAtom2);
+atom *createAtom(int atomicNumber);
+int bondList_add(bondNode **ppList, int strength, atom *pAtom);
+int printAtom(atom *pAtom,int n);
+int printBonds(bondNode *pList,int n);
+int genFormula(atom *pAtom,int **output,int *size);
+
+
+
+atom *createAtom(int atomicNumber) {
+    atom *p=(atom *)malloc(sizeof(atom));
+    p->atomicNumber = atomicNumber;
+    p->bondList = NULL;
+    return p;
+}
+
+int bondList_add(bondNode **ppList, int strength, atom *pAtom) {
+    if (ppList == NULL) { return -1; }
+    if (*ppList == NULL) {
+        *ppList = (bondNode *)malloc(sizeof(bondNode));
+        (*ppList)->strength=strength;
+        (*ppList)->pAtom=pAtom;
+        (*ppList)->pNext=NULL;
+        return 0;
+    } else {
+        return bondList_add( &((*ppList)->pNext), strength, pAtom );
+    }
+}
+
+int addBond(atom *pAtom, int strength, atom *pAtom2) {
+    if (pAtom == NULL) { return -1; }
+
+    return bondList_add( &(pAtom->bondList), strength, pAtom2);
+}
+
+int printAtom(atom *pAtom,int n) {
+    int i;
+    if (pAtom == NULL) {
+        printf("black hole sun...\n");
+    } else {
+        for(i=0;i<n;i=i+1) {
+            printf("   ");
+        }
+        printf("-> atomic number=%d: bonded to:\n",pAtom->atomicNumber);
+        printBonds(pAtom->bondList,n);
+        for(i=0;i<n;i=i+1) {
+            printf("   ");
+        }
+        printf("<- atomic number=%d\n",pAtom->atomicNumber);
+
+    }
+    return 0;
+}
+
+int printBonds(bondNode *pList,int n) {
+    int i;
+    for(i=0;i<n;i=i+1) {
+        printf("   ");
+    }
+    if (pList == NULL) {
+        printf("no bonds\n");
+    } else {
+        printf("strength=%d connected to:\n",pList->strength);
+        printAtom(pList->pAtom,n+1);
+        printBonds(pList->pNext,n);
+    }
+    return 0;
+}
+
+int genFormula(atom *pAtom,int **output,int *size) {
+    int count = 0;
+    int swap = 0;
+    int temp1  = 0;
+    int temp2  = 0;
+    int* tempout = NULL;
+    bondNode* atomtmp = NULL;
+    bondNode* branchtmp = NULL;
+    if ((pAtom == NULL) || (output == NULL) || (size == NULL)) {
+        return -1;
+    }
+    *size = 0;
+    if (pAtom -> atomicNumber != 0) {
+        *size += 1;
+    }
+    else {
+        return -1;
+    }
+
+    /* obtain size */
+    atomtmp = pAtom -> bondList;
+    while (atomtmp != NULL) {
+        branchtmp = atomtmp;
+        while (branchtmp != NULL){
+            (*size)++;
+            branchtmp = branchtmp ->pAtom -> bondList;
+        }
+        atomtmp = atomtmp -> pNext;
+    }
+
+    /* malloc tempout */
+    tempout = (int*)malloc(2*(*size)*sizeof(int));
+
+    /* fill list */
+    count = 2;
+    atomtmp = pAtom -> bondList;
+    (tempout)[0] = pAtom -> atomicNumber;
+    (tempout)[1] = 1;
+    while (atomtmp != NULL) {
+        branchtmp = atomtmp;
+        while (branchtmp != NULL){
+            (tempout)[count] = branchtmp -> pAtom -> atomicNumber;
+            (tempout)[count + 1] = 1;
+            count += 2;
+            branchtmp = branchtmp -> pAtom -> bondList;
+        }
+        atomtmp = atomtmp -> pNext;
+    }
+
+    /* sort from min to max with zeros collected at the end; if same atomic number, merge and zero */
+    swap = 1;
+    while (swap) {
+        swap = 0;
+        for (count = 0; count < (2*(*size)-2); count += 2) {
+            if ((tempout[count] == tempout[count + 2]) && (tempout[count] != 0)) {
+                swap = 1;
+                tempout[count + 1] += 1;
+                tempout[count + 2] = 0;
+                tempout[count + 3] = 0;
+            }
+            if ((tempout[count] > tempout[count + 2])) {
+                swap = 1;
+                temp1 = tempout[count];
+                temp2 = tempout[count + 1];
+                tempout[count] = tempout[count + 2];
+                tempout[count + 1] = tempout[count + 3];
+                tempout[count + 2] = temp1;
+                tempout[count + 3] = temp2;
+            }
+        }
+    }
+
+    /* malloc output */
+    for (count = 0; count < 2*(*size); count += 2) {
+        if (tempout[count] != 0) {
+            break;
+        }
+    }
+    temp1 = 2*(*size);
+    temp2 = 0;
+    *size = 2*(*size)-count;
+    *output = (int*)malloc((*size)*sizeof(int));
+
+    for (count; count < temp1; count++) {
+        (*output)[temp2] = tempout[count];
+        temp2++;
+    }
+
+    free(tempout);
+    return 0;
+}
+
+
+
+int main(void) {
+    int r=0;
+    int count = 0;
+    int **output = (int**)malloc(sizeof(bondNode));
+    int *size = (int*)malloc(sizeof(int));
+    atom *S;
+    atom *tmp1,*tmp2;
+
+    S = createAtom(16);
+
+    tmp1=createAtom(8);
+    r=addBond(S,2,tmp1);
+
+    tmp1=createAtom(8);
+    r=addBond(S,2,tmp1);
+
+    tmp1=createAtom(8);
+    tmp2=createAtom(1);
+    r=addBond(tmp1,1,tmp2);
+    r=addBond(S,1,tmp1);
+
+    tmp1=createAtom(8);
+    tmp2=createAtom(1);
+    r=addBond(tmp1,1,tmp2);
+    r=addBond(S,1,tmp1);
+
+    /*printAtom(S,0);*/
+    genFormula(S,output,size);
+    printf("\nsize: %i\n", *size);
+    for (count = 0; count < (*size); count += 2) {
+        printf("(%i) Atomic #: %i, #: %i\n", count, (*output)[count], (*output)[count + 1]);
+    }
+    return 0;
+}

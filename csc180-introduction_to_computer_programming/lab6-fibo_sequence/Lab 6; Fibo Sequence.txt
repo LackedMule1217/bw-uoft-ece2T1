@@ -1,0 +1,333 @@
+EXERCISES
+
+(1) a. Enter the above iterative fibonacci program.
+   Save it as fiboit.c
+
+#include <stdio.h>
+
+int fibo(int n);
+
+int main(void) {
+   int i;
+   for (i=0;i<20;i=i+1){
+      int f = fibo(i);
+      printf("fibo(%d)=%d\n",i,f);
+   }
+
+   return 0;
+}
+
+int fibo(int n){
+   int old=1;
+   int oldold=1;
+   int i;
+   for (i=0;i<n;i++) { // i++ is the same as i=i+1
+      int tmp = old;
+      old=old+oldold;
+      oldold=tmp;
+   }
+   return oldold;
+}
+
+
+
+
+
+(2) b. cp fiboit.c fibore.c
+   Modify the fibo function to perform the same function but recursively.
+   Make sure it still generates the 20 fibo numbers, prints them out,
+   and that they are in the same order as fiboit.c
+   Submit this as fibore.c to lab 6.
+
+#include <stdio.h>
+
+int fibo(int n);
+
+int main(void) {
+    int i;
+    for(i;i<20;i++) {
+        printf("fibo(%d)=%d\n",i,fibo(i));
+    }
+
+    return 0;
+}
+
+int fibo(int n){
+    if(n==0 || n==1) {
+        return 1;
+    }
+
+    else {
+        return fibo(n-1)+fibo(n-2);
+    }
+}
+
+
+
+
+
+
+(3) c. Modify the above program so it uses scanf to get a number
+   and then puts out that number of fibonacci numbers.
+   Submit this as fibon.c
+
+#include <stdio.h>
+
+int fibo(int n);
+
+int main(void) {
+    int range;
+    printf("Enter the number of fibonacci numbers to be printed out: ");
+    scanf("%d", &range);
+    int i;
+    for(i;i<range;i++) {
+        printf("fibo(%d)=%d\n",i,fibo(i));
+}
+
+    return 0;
+}
+
+int fibo(int n){
+    if(n==0 || n==1) {
+        return 1;
+    }
+
+    else {
+        return fibo(n-1)+fibo(n-2);
+    }
+}
+
+
+
+
+
+
+(4) Exercise 1 for this part of the Lab (Part C-2): (swap.c)
+Write a function swap that will SWAP the values of the two input arguments, returning 1 to
+indicate success.
+
+#include <stdio.h>
+
+int swap(int* a, int* b);
+
+int main(void) {
+    int num1, num2;
+    scanf("%i, %i", &num1, &num2);
+    printf("%i\n", swap(&num1, &num2));
+    return 0;
+}
+
+int swap(int* a, int* b) {
+    int* temp;
+    printf("value of a: %i\nvalue of b: %i\n", *a, *b);
+    temp = a;
+    printf("add of a: %u\nadd of b: %u\nadd of temp: %u\n", a, b, temp);
+    printf("value of a: %i\nvalue of b: %i\nvalue of temp: %u\n", *a, *b, *temp);
+    a = b;
+    printf("add of a: %u\nadd of b: %u\nadd of temp: %u\n", a, b, temp);
+    printf("value of a: %i\nvalue of b: %i\nvalue of temp: %u\n", *a, *b, *temp);
+    b = temp;
+    printf("%i, %i\n", *a, *b);
+    return 1;
+}
+
+
+
+
+
+
+(5) Prove to me that you've done this exercise, by submitting your code as:
+(arrayaddresses.c)
+
+#include <stdio.h>
+
+int main(void) {
+    int a[10];
+    int i=0;
+    printf("the size of an integer in my version of C is %d\n", sizeof(int));
+    printf("a is %d\n",a);
+    for (i;i<10;i=i+1){
+        printf(" the ADDRESS OF a[%d] is %u\n",i, &(a[i]));
+    }
+    return 0;
+}
+
+
+
+
+
+
+(6) Exercise 2 (anlboard.c): TicTacToe!
+Write the function analyze board, where board is a 9 elem array of integers, and everything else
+functions as before (return values, etc., as in Lab 2).
+
+#include <stdio.h>
+
+int anlBoard(int* T, int sizeT);
+
+int main(void) {
+    int T[9] = {1,1,2,2,2,1,1,1,2};
+    printf("%i\n", anlBoard(T, 9));
+    return 0;
+}
+
+int anlBoard(int* T, int sizeT) {
+    if(T[0] == T[1] && T[0] == T[2] && T[0] != 0) {
+        return T[0];
+    }
+    if(T[3] == T[4] && T[3] == T[5] && T[3] != 0) {
+        return T[3];
+    }
+    if(T[6] == T[7] && T[6] == T[8] && T[6] != 0) {
+        return T[6];
+    }
+    if(T[0] == T[3] && T[0] == T[6] && T[0] != 0) {
+        return T[0];
+    }
+    if(T[1] == T[4] && T[1] == T[7] && T[1] != 0) {
+        return T[1];
+    }
+    if(T[2] == T[5] && T[2] == T[8] && T[2] != 0) {
+        return T[2];
+    }
+    if(T[0] == T[4] && T[0] == T[8] && T[0] != 0) {
+        return T[0];
+    }
+    if(T[2] == T[4] && T[2] == T[6] && T[2] != 0) {
+        return T[2];
+    }
+
+    int n_opens, i = 0;
+    for(i; i<sizeT; i++) {
+        if (T[i] == 0) {
+            n_opens++;
+        }
+    }
+
+    if(n_opens == 0) {
+        return 3;
+    }
+    else {
+        return 0;
+    }
+}
+
+
+
+
+
+
+(7) Exercise 3 (anlboardchar.c):
+Redo the above function but with a char array instead of an integer array:
+   int anlboard( char *T, int sizeT ) { ... }
+Everything functions as before but now, assume the three states of the
+board positions will be: 'X' instead of 1, 'O' instead of 2, and '-' instead of 0
+Note my capitalization.
+
+#include <stdio.h>
+
+char anlBoard(char* T, int sizeT);
+
+int main(void) {
+    char T[9] = {'O','X','O','O','O','X','X','O','X'};
+    printf("%c\n", anlBoard(T, 9));
+    return 0;
+}
+
+char anlBoard(char* T, int sizeT) {
+    if(T[0] == T[1] && T[0] == T[2] && T[0] != '-') {
+        return T[0];
+    }
+    if(T[3] == T[4] && T[3] == T[5] && T[3] != '-') {
+        return T[3];
+    }
+    if(T[6] == T[7] && T[6] == T[8] && T[6] != '-') {
+        return T[6];
+    }
+    if(T[0] == T[3] && T[0] == T[6] && T[0] != '-') {
+        return T[0];
+    }
+    if(T[1] == T[4] && T[1] == T[7] && T[1] != '-') {
+        return T[1];
+    }
+    if(T[2] == T[5] && T[2] == T[8] && T[2] != '-') {
+        return T[2];
+    }
+    if(T[0] == T[4] && T[0] == T[8] && T[0] != '-') {
+        return T[0];
+    }
+    if(T[2] == T[4] && T[2] == T[6] && T[2] != '-') {
+        return T[2];
+    }
+
+    int n_opens, i = 0;
+    for(i; i<sizeT; i++) {
+        if (T[i] == '-') {
+            n_opens++;
+        }
+    }
+
+    if(n_opens == 0) {
+        return '3';
+    }
+    else {
+        return '0';
+    }
+}
+
+
+
+
+
+
+(8) Python Part (seqdetectorlib.py):
+You are to write a sequence detector that will detect the sequence:
+"here", "are", "the", "solutions", "to", "the", "next", "exam".
+
+class seqdetector:
+    def __init__(self):
+        self.words_list = ""
+    def evolve(self, word):
+        self.words_list += word
+        #print(self.words_list)
+
+        phrase = "herearethesolutionstothenextexam"
+
+        try:
+            if len(self.words_list) >= len(phrase):
+                i=0
+                for i in range(len(self.words_list)):
+                    if self.words_list[i:i+len(phrase)] == phrase:
+                        self.words_list = ""
+                        return True
+            return False
+        except:
+            return False
+
+x=seqdetector()
+
+print(x.evolve( "here"))
+print(x.evolve( "are"))
+print(x.evolve( "the"))
+print(x.evolve( "solutions"))
+print(x.evolve( "to"))
+print(x.evolve( "the"))
+print(x.evolve( "next"))
+print(x.evolve( "exam"))
+print(x.evolve( "here"))
+print(x.evolve( "are"))
+print(x.evolve( "the"))
+print(x.evolve( "solutions"))
+print(x.evolve( "to"))
+print(x.evolve( "the"))
+print(x.evolve( "next"))
+print(x.evolve( "blah"))
+print(x.evolve( "exam"))
+print(x.evolve( "here"))
+print(x.evolve( "are"))
+print(x.evolve( "the"))
+print(x.evolve( "solutions"))
+print(x.evolve( "to"))
+print(x.evolve( "the"))
+print(x.evolve( "next"))
+print(x.evolve( "exam"))

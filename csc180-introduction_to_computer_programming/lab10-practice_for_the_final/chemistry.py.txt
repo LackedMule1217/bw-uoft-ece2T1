@@ -1,0 +1,49 @@
+class Atom:
+    def __init__(self, atomicNum):
+        self.atomicNum = atomicNum
+        self.bondList = []
+
+    def addBond(self, bondStrength, atomToBondWith):
+        atomToBondWith.bondList += [[self, self.atomicNum, bondStrength, atomToBondWith]]
+        return 0
+
+    def printStructure(self):
+        atomicNumList = []
+        if (len(self.bondList) == 0):
+            return 0
+
+        for i in range(len(self.bondList)):
+            if not any(self.bondList[i][1] == n for n in atomicNumList):
+                atomicNumList += [self.bondList[i][0], self.bondList[i][1]]
+                return atomicNumList.append((self.bondList[i][0]).printStructure())
+
+        atomicNumList += [self.atomicNum]
+        print(atomicNumList)
+
+        """for i in range(len(self.bondList)):
+            print("Current: ", self.bondList[i][0], "Atomic Number: ", self.bondList[i][1], "   Bond Strength: ", self.bondList[i][2], "   Bonded To: ", self.atomicNum)
+        for i in range(len(self.bondList[0][0].bondList)):
+            print("Current: ", self.bondList[0][0].bondList[i][0], "Atomic Number: ", self.bondList[0][0].bondList[i][1], "   Bond Strength: ", self.bondList[0][0].bondList[i][2], "   Bonded To: ", self.bondList[0][0].atomicNum)
+"""
+    #def genFormula(self):
+
+
+
+S = Atom(16)
+O1 = Atom(8)
+O2 = Atom(8)
+O3 = Atom(8)
+O4 = Atom(8)
+H1 = Atom(1)
+H2 = Atom(1)
+O1.addBond(2, S)
+O2.addBond(2, S)
+O3.addBond(1, S)
+O4.addBond(1, S)
+H1.addBond(1, O1)
+H2.addBond(1, O2)
+
+#print(Atom(8).bondList)
+#print(S.bondList)
+
+Atom.printStructure(S)

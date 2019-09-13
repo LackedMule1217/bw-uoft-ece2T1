@@ -1,0 +1,120 @@
+m255
+K4
+z2
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 dD:/Barney/OneDrive - University of Toronto/2. Homework/10. Computer Organization (ECE243)/Labs/Lab 1 Introduction to Processors/part1/simulation/modelsim
+vdec3to8
+Z1 !s110 1547606435
+!i10b 1
+!s100 W4Lh11AlV=P97`F5:9jhZ3
+Ind4R?I?g?BU26TVUoElje2
+Z2 VDg1SIo80bB@j0V0VzS_@n1
+R0
+Z3 w1547605339
+Z4 8D:/Barney/OneDrive - University of Toronto/2. Homework/10. Computer Organization (ECE243)/Labs/Lab 1 Introduction to Processors/part1/proc.v
+Z5 FD:/Barney/OneDrive - University of Toronto/2. Homework/10. Computer Organization (ECE243)/Labs/Lab 1 Introduction to Processors/part1/proc.v
+L0 263
+Z6 OV;L;10.5b;63
+r1
+!s85 0
+31
+Z7 !s108 1547606435.000000
+Z8 !s107 D:/Barney/OneDrive - University of Toronto/2. Homework/10. Computer Organization (ECE243)/Labs/Lab 1 Introduction to Processors/part1/proc.v|
+Z9 !s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+D:/Barney/OneDrive - University of Toronto/2. Homework/10. Computer Organization (ECE243)/Labs/Lab 1 Introduction to Processors/part1|D:/Barney/OneDrive - University of Toronto/2. Homework/10. Computer Organization (ECE243)/Labs/Lab 1 Introduction to Processors/part1/proc.v|
+!i113 1
+Z10 o-vlog01compat -work work
+Z11 !s92 -vlog01compat -work work {+incdir+D:/Barney/OneDrive - University of Toronto/2. Homework/10. Computer Organization (ECE243)/Labs/Lab 1 Introduction to Processors/part1}
+Z12 tCvgOpt 0
+vmain
+R1
+!i10b 1
+!s100 lkNlBio]]=>RXQN3O1mh_1
+ISR4oi9lDiKJB2Kd1TfW`_1
+R2
+R0
+w1547597813
+8D:/Barney/OneDrive - University of Toronto/2. Homework/10. Computer Organization (ECE243)/Labs/Lab 1 Introduction to Processors/part1/main.v
+FD:/Barney/OneDrive - University of Toronto/2. Homework/10. Computer Organization (ECE243)/Labs/Lab 1 Introduction to Processors/part1/main.v
+L0 21
+R6
+r1
+!s85 0
+31
+R7
+!s107 D:/Barney/OneDrive - University of Toronto/2. Homework/10. Computer Organization (ECE243)/Labs/Lab 1 Introduction to Processors/part1/main.v|
+!s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+D:/Barney/OneDrive - University of Toronto/2. Homework/10. Computer Organization (ECE243)/Labs/Lab 1 Introduction to Processors/part1|D:/Barney/OneDrive - University of Toronto/2. Homework/10. Computer Organization (ECE243)/Labs/Lab 1 Introduction to Processors/part1/main.v|
+!i113 1
+R10
+R11
+R12
+vproc
+R1
+!i10b 1
+!s100 7;eHhZ_iGTTI52^@dcl@]1
+I]S@]n>[I_o<GTQ6]9JRYo3
+R2
+R0
+R3
+R4
+R5
+L0 18
+R6
+r1
+!s85 0
+31
+R7
+R8
+R9
+!i113 1
+R10
+R11
+R12
+vregn
+R1
+!i10b 1
+!s100 Yhol]Gmn1YbCb:a_Ak]I^2
+I<@Q`PT`Xgcl[4QYmWM=022
+R2
+R0
+R3
+R4
+R5
+L0 287
+R6
+r1
+!s85 0
+31
+R7
+R8
+R9
+!i113 1
+R10
+R11
+R12
+vtestbench
+R1
+!i10b 1
+!s100 :G]4Z6>4Co_1HUc[4ZM3g2
+IkfYXjcPF2Ch0JBPG1n0nh2
+R2
+R0
+w1542995506
+8D:/Barney/OneDrive - University of Toronto/2. Homework/10. Computer Organization (ECE243)/Labs/Lab 1 Introduction to Processors/part1/testbench.v
+FD:/Barney/OneDrive - University of Toronto/2. Homework/10. Computer Organization (ECE243)/Labs/Lab 1 Introduction to Processors/part1/testbench.v
+L0 3
+R6
+r1
+!s85 0
+31
+R7
+!s107 D:/Barney/OneDrive - University of Toronto/2. Homework/10. Computer Organization (ECE243)/Labs/Lab 1 Introduction to Processors/part1/testbench.v|
+!s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+D:/Barney/OneDrive - University of Toronto/2. Homework/10. Computer Organization (ECE243)/Labs/Lab 1 Introduction to Processors/part1|D:/Barney/OneDrive - University of Toronto/2. Homework/10. Computer Organization (ECE243)/Labs/Lab 1 Introduction to Processors/part1/testbench.v|
+!i113 1
+R10
+R11
+R12

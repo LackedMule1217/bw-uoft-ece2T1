@@ -1,0 +1,81 @@
+class Atom:
+    def __init__(self, atomicNum):
+        self.atomicNum = atomicNum
+        self.bondList = []
+
+    def addBond(self, bondStrength, atomToBondWith):
+        atomToBondWith.bondList += [[self, self.atomicNum, bondStrength, atomToBondWith]]
+        return 0
+
+    def iterStructure(self, atomicNumList, bondlist):
+        if (bondlist == []):
+            return 0
+        else:
+            atomicNumList += bondlist
+            for i in range(len(bondlist)):
+                self.iterStructure(atomicNumList, bondlist[i][0].bondList)
+            return atomicNumList
+
+    def printStructure(self):
+        atomicNumList = []
+
+        atomicNumList = self.iterStructure(atomicNumList, self.bondList)
+        #print("Head Atomic Number: ", self.atomicNum)
+        """for i in atomicNumList:
+            print(i)
+        print(len(atomicNumList))"""
+
+        return [atomicNumList] + [self.atomicNum]
+
+    def genFormula(self):
+        atomicNumList = []
+        formulaLs = []
+        formula = ""
+        swap = True
+
+        #retrieve atomicNumList
+        atomicNumList = self.iterStructure(atomicNumList, self.bondList)
+        #formulate list
+        formulaLs += [self.atomicNum] + [1]
+        for i in range(len(atomicNumList)):
+            formulaLs += [atomicNumList[i][1]] + [1]
+        #bubble sort and merge
+        while (swap):
+            swap = False
+            for i in range(0, (len(formulaLs) - 2), 2):
+                if ((formulaLs[i] == formulaLs[i + 2]) and (formulaLs[i] != 0)):
+                    swap = True
+                    formulaLs[i + 1] += 1
+                    formulaLs[i + 2] = 0
+                    formulaLs[i + 3] = 0
+                if (formulaLs[i] > formulaLs[i + 2]):
+                    swap = True
+                    temp1 = formulaLs[i]
+                    temp2 = formulaLs[i + 1]
+                    formulaLs[i] = formulaLs[i + 2]
+                    formulaLs[i + 1] = formulaLs[i + 3]
+                    formulaLs[i + 2] = temp1
+                    formulaLs[i + 3] = temp2
+        #formulate formula
+        for i in formulaLs:
+            if i != 0:
+                formula += str(i) + "_"
+        formula = formula[0:len(formula)-1]
+        return formula
+
+S = Atom(16)
+O1 = Atom(8)
+O2 = Atom(8)
+O3 = Atom(8)
+O4 = Atom(8)
+H1 = Atom(1)
+H2 = Atom(1)
+O1.addBond(2, S)
+O2.addBond(2, S)
+O3.addBond(1, S)
+O4.addBond(1, S)
+H1.addBond(1, O1)
+H2.addBond(1, O2)
+
+#print(S.printStructure())
+print(S.genFormula())

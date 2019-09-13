@@ -1,0 +1,91 @@
+int genFormula(atom *pAtom,int **output,int *size) {
+    int count = 0;
+    int swap = 0;
+    int temp1  = 0;
+    int temp2  = 0;
+    int* tempout = NULL;
+    bondNode* atomtmp = NULL;
+    bondNode* branchtmp = NULL;
+    if ((pAtom == NULL) || (output == NULL) || (size == NULL)) {
+        return -1;
+    }
+    *size = 0;
+    if (pAtom -> atomicNumber != 0) {
+        *size += 1;
+    }
+    else {
+        return -1;
+    }
+
+    /* obtain size */
+    atomtmp = pAtom -> bondList;
+    while (atomtmp != NULL) {
+        branchtmp = atomtmp;
+        while (branchtmp != NULL){
+            (*size)++;
+            branchtmp = branchtmp ->pAtom -> bondList;
+        }
+        atomtmp = atomtmp -> pNext;
+    }
+
+    /* malloc tempout */
+    tempout = (int*)malloc(2*(*size)*sizeof(int));
+
+    /* fill list */
+    count = 2;
+    atomtmp = pAtom -> bondList;
+    (tempout)[0] = pAtom -> atomicNumber;
+    (tempout)[1] = 1;
+    while (atomtmp != NULL) {
+        branchtmp = atomtmp;
+        while (branchtmp != NULL){
+            (tempout)[count] = branchtmp -> pAtom -> atomicNumber;
+            (tempout)[count + 1] = 1;
+            count += 2;
+            branchtmp = branchtmp -> pAtom -> bondList;
+        }
+        atomtmp = atomtmp -> pNext;
+    }
+
+    /* sort from min to max with zeros collected at the end; if same atomic number, merge and zero */
+    swap = 1;
+    while (swap) {
+        swap = 0;
+        for (count = 0; count < (2*(*size)-2); count += 2) {
+            if ((tempout[count] == tempout[count + 2]) && (tempout[count] != 0)) {
+                swap = 1;
+                tempout[count + 1] += 1;
+                tempout[count + 2] = 0;
+                tempout[count + 3] = 0;
+            }
+            if ((tempout[count] > tempout[count + 2])) {
+                swap = 1;
+                temp1 = tempout[count];
+                temp2 = tempout[count + 1];
+                tempout[count] = tempout[count + 2];
+                tempout[count + 1] = tempout[count + 3];
+                tempout[count + 2] = temp1;
+                tempout[count + 3] = temp2;
+            }
+        }
+    }
+
+    /* malloc output */
+    for (count = 0; count < 2*(*size); count += 2) {
+        if (tempout[count] != 0) {
+            break;
+        }
+    }
+    temp1 = 2*(*size);
+    temp2 = 0;
+    *size = 2*(*size)-count;
+    *output = (int*)malloc((*size)*sizeof(int));
+
+    for (count; count < temp1; count++) {
+        (*output)[temp2] = tempout[count];
+        temp2++;
+    }
+
+    free(tempout);
+    return 0;
+}

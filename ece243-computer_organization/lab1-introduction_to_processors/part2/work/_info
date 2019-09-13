@@ -1,0 +1,130 @@
+m255
+K4
+z2
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 dD:/Barney/OneDrive - University of Toronto/2. Homework/10. Computer Organization (ECE243)/Labs/Lab 1 Introduction to Processors/part2
+vcount5
+Z1 !s110 1547868574
+!i10b 1
+!s100 cXQSo:=M0FN@KicDRZf0L2
+I^=cR^aMS370UWPRUkmd_31
+Z2 VDg1SIo80bB@j0V0VzS_@n1
+R0
+Z3 w1547694539
+Z4 8main.v
+Z5 Fmain.v
+L0 47
+Z6 OV;L;10.5b;63
+r1
+!s85 0
+31
+Z7 !s108 1547868574.000000
+Z8 !s107 inst_mem.v|main.v|
+Z9 !s90 -reportprogress|300|main.v|
+!i113 1
+Z10 tCvgOpt 0
+vdec3to8
+Z11 !s110 1547694175
+!i10b 1
+!s100 W4Lh11AlV=P97`F5:9jhZ3
+IFEVm7dJQ<A?jDAEP9O`_X2
+R2
+R0
+Z12 w1547692910
+Z13 8proc.v
+Z14 Fproc.v
+L0 263
+R6
+r1
+!s85 0
+31
+Z15 !s108 1547694174.000000
+Z16 !s107 proc.v|
+Z17 !s90 -reportprogress|300|proc.v|
+!i113 1
+R10
+vinst_mem
+R1
+!i10b 1
+!s100 OEX7eXmO^5^SkZ6W9zWFP1
+Ik4^efXXfBK5YMVReg<i8m3
+R2
+R0
+w1547693486
+8inst_mem.v
+Finst_mem.v
+L0 39
+R6
+r1
+!s85 0
+31
+R7
+R8
+R9
+!i113 1
+R10
+vmain
+R1
+!i10b 1
+!s100 kOa7G=W;AjfaD;S;<JiNh1
+Iic7MLNbhZ4:_@mHYXRk6E0
+R2
+R0
+R3
+R4
+R5
+L0 22
+R6
+r1
+!s85 0
+31
+R7
+R8
+R9
+!i113 1
+R10
+vproc
+R11
+!i10b 1
+!s100 o01cK5och^OAgU26C_SO[1
+I:DllTo8WNnOO^lk5XX`]_3
+R2
+R0
+R12
+R13
+R14
+L0 18
+R6
+r1
+!s85 0
+31
+R15
+R16
+R17
+!i113 1
+R10
+vregn
+R11
+!i10b 1
+!s100 Yhol]Gmn1YbCb:a_Ak]I^2
+I`aI[lNCc;:W]E`6f6JY_12
+R2
+R0
+R12
+R13
+R14
+L0 287
+R6
+r1
+!s85 0
+31
+R15
+R16
+R17
+!i113 1
+R10

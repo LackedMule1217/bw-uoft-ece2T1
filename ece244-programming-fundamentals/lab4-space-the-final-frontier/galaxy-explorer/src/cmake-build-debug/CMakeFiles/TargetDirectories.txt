@@ -1,3 +1,0 @@
-D:/Barney/OneDrive - University of Toronto/2. Homework/4. Programming Fundamentals (ECE244)/Lab 4 Material/galaxy-explorer/src/cmake-build-debug/CMakeFiles/src.dir
-D:/Barney/OneDrive - University of Toronto/2. Homework/4. Programming Fundamentals (ECE244)/Lab 4 Material/galaxy-explorer/src/cmake-build-debug/CMakeFiles/edit_cache.dir
-D:/Barney/OneDrive - University of Toronto/2. Homework/4. Programming Fundamentals (ECE244)/Lab 4 Material/galaxy-explorer/src/cmake-build-debug/CMakeFiles/rebuild_cache.dir

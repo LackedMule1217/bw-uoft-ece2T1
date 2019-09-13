@@ -1,0 +1,93 @@
+PART I: C
+A. Chemical Warfare
+Refer to: https://design.engsci.utoronto.ca/courses/csc180/lectures/2017-11-13_lecture
+
+You will write a function to extend this code:
+   int genFormula(atom *pAtom,int **output,int *size);
+that will construct the formula of the chemical structure pointed
+at by pAtom.
+You are to return the formula via an array, called output, that will
+be of size <#species>*2. The even elements will be the atomic number
+and the odd elements will be the number of species of the atomic number
+indicated by the prior element of the array. E.g., Sulfuric Acid (H2SO4) will
+be represented by:
+output[0] = 1    /* H */
+output[1] = 2
+output[2] = 8    /* O */
+output[3] = 4
+output[4] = 16   /* S */
+output[5] = 1
+size = 6
+
+note: the even elements of the array should be sorted by order of
+atomic number (not randomly organized).
+
+REMOVE ALL CODE OTHER THAN THE INDICATED SINGLE FUNCTION.
+Submit this function as: formula.c
+
+TEST YOUR CODE COMPLETELY.
+
+
+
+
+
+
+
+B. Binary Search Trees
+Warning: it is very tempting to wiki or google this. Don't. Why? Are you
+allowed to use wiki or google on an exam? Then why would you even consider
+this for an exam-practice assignment. If you're truly curious, wait for
+Christmas holidays, and google your hearts out. Until then: stay on track, and
+practice with this assignment as if it was an exam question. I will not
+entertain any "scientific questions" or questions that stem from you not
+understanding some internet-derived junk.
+
+Create a structure called TreeNode that stores an integer value and has two
+pointers: left and right.
+
+Create a function for this Tree called "int add(TreeNode **root,int val)".
+Given a tree pointer, root:
+ * if NULL: create the node and assign val
+ * if not NULL: if val < root->val: call add on root->left
+                if val > root->val: call add on root->right
+                if val == root->val: do nothing
+ * return 0 for success, -1 for failure
+
+Create a function called "int print(TreeNode *root)" which does:
+  * if root==NULL: return
+  * else: call print(root->left)
+          print root->val
+          call print(root->right)
+
+Submit this code as tree.c
+
+
+
+
+
+
+
+Part II: Python Part
+A.  You are to write a class:
+       atom
+    the python analog of the C chemical structure work above.
+
+    atom will have an init method that takes in only the atomic number
+       * it will assign atomic number internally
+       * it will also assign an empty bondList
+    atom will have a method called "addBond" taking two args
+       * arg 1 = bond strength
+       * arg 2 = atom to bond with
+    atom will have a method called printStructure which will
+       take no args and work like the C printAtom function
+       (this will be used for your debug)
+    atom will have a method called genFormula which will produce a return
+       value corresponding to the chemical formula in the following format:
+       * a string
+       * in order of chemical number
+       * H2SO4 becomes "1_2_8_4_16_1"
+                        H 2 O 4  S 1
+
+submit this class as chemistry.py       
+
+MAKE SURE YOU TEST THIS.

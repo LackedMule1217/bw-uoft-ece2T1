@@ -1,0 +1,12 @@
+See the data in (data.csv) and data out for various cases
+of col and dir.
+
+For example: dout.csv.col0.dir- is the data that should be generated
+when calling your sortCSV.py  with the following command line
+python sortCSV.py --fin data.csv --fout dout.csv.col0.dir- --col 0 --dir - 
+
+Make sure your sortCSV.py produces IDENTICAL results.
+
+Obviously, sortCSV.py must be spelled EXACTLY correct.
+
+

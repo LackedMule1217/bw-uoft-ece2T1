@@ -1,0 +1,139 @@
+
+D:/Lab 5; Using Input Output Devices/part2/auto_hex_2d.axf:     file format elf32-littlearm
+
+
+Disassembly of section .text:
+
+00000000 <__cs3_interrupt_vector>:
+			.global _start
+			.equ	HEX_ADDR, 0xFF200020	// stores HEX[3:0] mem address
+			.equ	KEY_ADDR, 0xFF200050	// stores KEYs mem address
+			
+_start:
+			LDR		R0, =0x3F3F			// set initial HEX display to 00
+   0:	e59f00b4 	ldr	r0, [pc, #180]	; bc <HEX+0xc>
+			LDR		R4, =HEX			// set pointer to beginning of HEX array
+   4:	e59f40b4 	ldr	r4, [pc, #180]	; c0 <HEX+0x10>
+			LDR		R5, =HEX_ADDR		// stores hex address in R5
+   8:	e59f50b4 	ldr	r5, [pc, #180]	; c4 <HEX+0x14>
+			LDR		R6, =KEY_ADDR		// stores key address in R6
+   c:	e59f60b4 	ldr	r6, [pc, #180]	; c8 <HEX+0x18>
+			MOV		R7,	#0				// stores counter value
+  10:	e3a07000 	mov	r7, #0
+
+00000014 <main>:
+			
+main:		STR		R0, [R5]			// store value to HEX display
+  14:	e5850000 	str	r0, [r5]
+
+00000018 <delay>:
+delay:		LDR		R8, =200000000		// store delay counter and do delay
+  18:	e59f80ac 	ldr	r8, [pc, #172]	; cc <HEX+0x1c>
+
+0000001c <delay_1>:
+delay_1:	SUBS	R8, R8, #1
+  1c:	e2588001 	subs	r8, r8, #1
+			BNE		delay_1
+  20:	1afffffd 	bne	1c <delay_1>
+			LDR		R9, [R6, #0xC]		// if keys are pressed, pause
+  24:	e596900c 	ldr	r9, [r6, #12]
+			CMP		R9, #0
+  28:	e3590000 	cmp	r9, #0
+
+0000002c <check_key>:
+check_key:	LDR		R10, [R6]
+  2c:	e596a000 	ldr	r10, [r6]
+			CMP		R10, #0
+  30:	e35a0000 	cmp	r10, #0
+			BNE		check_key
+  34:	1afffffc 	bne	2c <check_key>
+			MOV		R10, #0b1111
+  38:	e3a0a00f 	mov	r10, #15
+			STR		R10, [R6, #0xC]		// reset key edgecapture register
+  3c:	e586a00c 	str	r10, [r6, #12]
+
+00000040 <incre>:
+incre:		ADD		R7, #1				// increment counter value
+  40:	e2877001 	add	r7, r7, #1
+			CMP		R7, #100			// if cnt==100, reset counter to 0 and return to main
+  44:	e3570064 	cmp	r7, #100	; 0x64
+			MOVEQ	R7, #0
+  48:	03a07000 	moveq	r7, #0
+			MOV		R2, R7				// subroutine prep: moves count value to R2
+  4c:	e1a02007 	mov	r2, r7
+			BL		HEX_DIVIDE			// calls hex divide subroutine
+  50:	eb000003 	bl	64 <HEX_DIVIDE>
+			MOV		R3, R1				// subroutine prep: moves quotient value to R3
+  54:	e1a03001 	mov	r3, r1
+			MOV		R2, R0				// subroutine prep: moves remainder value to R2
+  58:	e1a02000 	mov	r2, r0
+			BL		NUM_TO_HEX			// calls num to hex subroutine
+  5c:	eb00000b 	bl	90 <NUM_TO_HEX>
+			B		main				// loop to main
+  60:	eaffffeb 	b	14 <main>
+
+00000064 <HEX_DIVIDE>:
+ * Input: 		R2 - input data
+ * Usage:		R4 - temporary quotient
+ * Output: 		R0 - remainder
+ *				R1 - quotient
+ */
+HEX_DIVIDE: PUSH	{R4-R12}
+  64:	e92d1ff0 	push	{r4, r5, r6, r7, r8, r9, r10, r11, r12}
+			MOV 	R4, #0
+  68:	e3a04000 	mov	r4, #0
+
+0000006c <CONT>:
+CONT: 		CMP 	R2, #10
+  6c:	e352000a 	cmp	r2, #10
+			BLT 	DIV_END
+  70:	ba000002 	blt	80 <DIV_END>
+			SUB 	R2, #10
+  74:	e242200a 	sub	r2, r2, #10
+			ADD 	R4, #1
+  78:	e2844001 	add	r4, r4, #1
+			B 		CONT
+  7c:	eafffffa 	b	6c <CONT>
+
+00000080 <DIV_END>:
+DIV_END: 	MOV 	R1, R4 				// quotient in R1
+  80:	e1a01004 	mov	r1, r4
+			MOV		R0, R2				// remainder in R0
+  84:	e1a00002 	mov	r0, r2
+			POP		{R4-R12}
+  88:	e8bd1ff0 	pop	{r4, r5, r6, r7, r8, r9, r10, r11, r12}
+			BX		LR
+  8c:	e12fff1e 	bx	lr
+
+00000090 <NUM_TO_HEX>:
+				R3 - quotient
+ * Usage:		R4 - HEX memory value
+				R5 - temporary remainder hex code
+ * Output: 		R0 - hex code
+ */
+NUM_TO_HEX: PUSH	{R4-R12}
+  90:	e92d1ff0 	push	{r4, r5, r6, r7, r8, r9, r10, r11, r12}
+			LDR		R4, =HEX
+  94:	e59f4024 	ldr	r4, [pc, #36]	; c0 <HEX+0x10>
+			LDRB	R0, [R4, R3]
+  98:	e7d40003 	ldrb	r0, [r4, r3]
+			LSL		R0, R0, #8
+  9c:	e1a00400 	lsl	r0, r0, #8
+			LDRB	R5, [R4, R2]
+  a0:	e7d45002 	ldrb	r5, [r4, r2]
+			ADD		R0, R5
+  a4:	e0800005 	add	r0, r0, r5
+			POP		{R4-R12}
+  a8:	e8bd1ff0 	pop	{r4, r5, r6, r7, r8, r9, r10, r11, r12}
+			BX		LR
+  ac:	e12fff1e 	bx	lr
+
+000000b0 <HEX>:
+  b0:	4f5b063f 	.word	0x4f5b063f
+  b4:	077d6d66 	.word	0x077d6d66
+  b8:	0000677f 	.word	0x0000677f
+  bc:	00003f3f 	.word	0x00003f3f
+  c0:	000000b0 	.word	0x000000b0
+  c4:	ff200020 	.word	0xff200020
+  c8:	ff200050 	.word	0xff200050
+  cc:	0bebc200 	.word	0x0bebc200
